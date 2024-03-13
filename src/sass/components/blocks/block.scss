@@ -1,0 +1,31 @@
+.block {
+  block-size: 100%;
+  padding-bottom: 15px;
+
+  .block-header {
+    display: flex;
+    height: 50px;
+    padding: 6px 22px;
+    align-items: center;
+    color: rgba(33, 37, 41);
+    background-color: rgba(255, 255, 255, 0.8);
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+
+    h3 {
+      font-size: 18px;
+      padding: 0 2px;
+      margin: 0;
+    }
+    &_button {
+      cursor: pointer;
+    }
+  }
+  // .wrapper {
+  //   // height: calc(100vh - 124px);
+  //   // height: calc(50vh);
+
+  //   // height: auto;
+  //   // overflow: auto;
+  // }
+}

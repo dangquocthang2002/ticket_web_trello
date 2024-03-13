@@ -1,0 +1,10 @@
+export * as apiDepartment from "./departments.api";
+export * as apiUser from "./users.api";
+export * as apiBoard from "./boards.api";
+export * as apiTicketTask from "./ticketTasks.api";
+export * as apiEpic from "./epics.api";
+export * as apiArchive from "./archives.api";
+export * as apiLabel from "./labels.api";
+export * as apiSlack from "./slackConnection.api";
+export * as authAPIs from "./auth.api";
+export * as apiGithub from "./githubConnection.api";

@@ -1,0 +1,187 @@
+@import url("https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@100;300;400;500;700;800;900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@100;300;400;500;700;800;900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  font-size: 14px;
+}
+
+body {
+  overflow-y: hidden;
+  background-attachment: fixed;
+  background-repeat: repeat;
+  background-size: cover;
+  @include bgImgUrl("assets/sg-bg.jpeg");
+
+  &:after {
+    content: "";
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    left: 0;
+    top: 0;
+    // background-color: rgba(0, 0, 0, 0.5);
+    z-index: -1;
+  }
+}
+
+ul {
+  list-style-type: none;
+}
+
+a {
+  text-decoration: none;
+  color: unset;
+}
+
+img {
+  max-width: 100%;
+}
+
+.container-fluid {
+  height: 100%;
+  width: 100%;
+  padding: 0;
+}
+
+.btn:focus,
+.btn:active {
+  outline: 0 !important;
+}
+
+.p-btn {
+  background-color: #0b2c3daf;
+  margin: 4px;
+  padding: 4px 6px;
+  border-radius: 4px;
+  font-size: 13px;
+
+  &:hover {
+    color: white;
+    background-color: #0b2c3d;
+
+    button {
+      padding: 0;
+      color: white;
+    }
+  }
+
+  button {
+    padding: 0;
+    color: white;
+  }
+
+  span {
+    margin-right: 3px;
+    line-height: 100%;
+  }
+}
+
+.column_id_row {
+  width: 80px !important;
+  flex-shrink: 0;
+
+  span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 80px !important;
+  }
+}
+
+.submit-btn {
+  border: none;
+  padding: 6px 12px;
+  border-radius: 3px;
+  color: white;
+  background-color: #0079bf;
+}
+
+.toast {
+  position: fixed;
+  bottom: 20px;
+  right: 50px;
+  animation: fadeIn 0.5s;
+  animation-duration: 0.5s;
+  transition-timing-function: linear;
+  z-index: 11;
+
+  .wave {
+    width: 4px;
+    height: 10px;
+  }
+
+  .p-btn {
+    position: absolute;
+    color: white;
+    bottom: 1px;
+    right: 4px;
+    border: none;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    right: -200px;
+  }
+
+  to {
+    opacity: 1;
+    right: 50px;
+  }
+}
+
+.wave {
+  width: 3px;
+  height: 20px;
+  background: #5e6c84;
+  margin: 2px;
+  animation: wave 1s linear infinite;
+  border-radius: 20px;
+}
+.wave:nth-child(2) {
+  animation-delay: 0.1s;
+}
+.wave:nth-child(3) {
+  animation-delay: 0.2s;
+}
+.wave:nth-child(4) {
+  animation-delay: 0.3s;
+}
+.wave:nth-child(5) {
+  animation-delay: 0.4s;
+}
+.wave:nth-child(6) {
+  animation-delay: 0.5s;
+}
+.wave:nth-child(7) {
+  animation-delay: 0.6s;
+}
+.wave:nth-child(8) {
+  animation-delay: 0.7s;
+}
+.wave:nth-child(9) {
+  animation-delay: 0.8s;
+}
+.wave:nth-child(10) {
+  animation-delay: 0.9s;
+}
+
+@keyframes wave {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0);
+  }
+}

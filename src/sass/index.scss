@@ -1,0 +1,39 @@
+@import "./variables";
+@import "./mixins";
+@import "./base";
+//import component
+
+@import "./components/boardheader/boardheader";
+@import "./components/navbar-header/navbarheader";
+@import "./view.scss";
+@import "./components/column-tickets/columntickets";
+@import "./components/board/board";
+@import "./components/add-ticket/addticket";
+@import "./components/add-column/addcolumn";
+@import "./components/pages/loginuser";
+@import "./components/pages/notfound";
+@import "./components/pages/ticketsdetail";
+@import "./components/board-menu/boardMenu";
+@import "./components/pages/ticket-activity/ticketActivity";
+@import "./components/board-activities/ActivityPreview";
+@import "./components/boardLeftSideBar/boardLeftSideBar";
+@import "./components/boardLeftSideBar/components/boardcontentleft";
+@import "./components/boardLeftSideBar/components/listBoardsOfDepartment";
+@import "./components/board-filter/boardFilter";
+@import "./components/profile/profilePopup";
+@import "./components/profile/profilePage";
+
+//tho
+@import "./components/departments/department";
+@import "./components/blocks/block";
+//Thang
+@import "./components/list-board/listboards";
+@import "./components/pageusers/users";
+@import "./components/epics/listepics";
+
+//
+@import "./components/archives-header/archivesheader";
+@import "./components/achives/archives";
+
+@import "./components/slackconnection/slackconnection";
+@import "./components/github-connection/githubconnection";

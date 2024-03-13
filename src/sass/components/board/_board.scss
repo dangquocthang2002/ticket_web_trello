@@ -1,0 +1,128 @@
+.tickets {
+  &_content {
+    display: flex;
+    margin-left: 20px;
+    margin-right: 20px;
+    height: auto;
+    bottom: 0;
+    top: 0;
+    width: auto;
+    overflow-y: hidden;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+}
+
+.content-wrapper {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 44px;
+
+  &_layout {
+    background-color: #0b2c3d2e;
+    position: relative;
+  }
+}
+
+.Loading {
+  top: 50%;
+  left: 50%;
+  position: absolute;
+  color: white;
+  align-items: center;
+  text-align: center;
+}
+
+.sortable-chosen {
+  height: auto;
+  transition: transform 0.18s ease;
+  transform: rotateZ(5deg);
+  background-color: rgba(150, 150, 200, 0.1);
+  border: 1px solid #abc;
+  padding: 0;
+  border-radius: 2px;
+}
+
+.sortable-drag {
+  border: 1px dashed #abc;
+}
+
+.ghost {
+  transition: transform 0.18s ease-in-out;
+  transform: rotateZ(0deg);
+  z-index: 1;
+  color: #ccc;
+  background-color: none;
+}
+
+.column-drop-preview {
+  height: auto;
+  border: 1px dashed #abc;
+}
+.loader_wrapper {
+  align-items: center;
+  background-color: #0000007a;
+  opacity: 0.4;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  left: 0;
+  top: 0;
+  overflow-y: auto;
+  position: fixed;
+  width: 100%;
+  z-index: 120;
+  .lds-ripple {
+    display: inline-block;
+    position: relative;
+    width: 80px;
+    height: 80px;
+  }
+  .lds-ripple div {
+    position: absolute;
+    border: 4px solid #fff;
+    opacity: 1;
+    border-radius: 50%;
+    animation: lds-ripple 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+  }
+  .lds-ripple div:nth-child(2) {
+    animation-delay: -0.5s;
+  }
+  @keyframes lds-ripple {
+    0% {
+      top: 36px;
+      left: 36px;
+      width: 0;
+      height: 0;
+      opacity: 0;
+    }
+    4.9% {
+      top: 36px;
+      left: 36px;
+      width: 0;
+      height: 0;
+      opacity: 0;
+    }
+    5% {
+      top: 36px;
+      left: 36px;
+      width: 0;
+      height: 0;
+      opacity: 1;
+    }
+    100% {
+      top: 0px;
+      left: 0px;
+      width: 72px;
+      height: 72px;
+      opacity: 0;
+    }
+  }
+}
+
+.tickets_content, .smooth-dnd-container {
+  user-select: none;
+  cursor: grab;
+}

@@ -1,0 +1,330 @@
+.gridview-board {
+  width: 100%;
+  height: 88vh;
+  cursor: pointer;
+  margin-right: 4px;
+  margin-left: 4px;
+  bottom: 0;
+  left: 0;
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  // -webkit-user-select: none;
+  // user-select: none;
+  white-space: nowrap;
+  width: auto;
+  display: inline-block;
+
+  &_tickets {
+    background-color: rgb(223 227 230 / 55%);
+    border-radius: 3px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    max-height: 100%;
+    position: relative;
+    white-space: normal;
+    margin-top: 5px;
+    width: 272px;
+  }
+}
+
+.list-header {
+  margin-left: 2px;
+  align-items: center;
+  justify-content: space-evenly;
+  display: flex;
+  height: 40px;
+
+  &_title h6 {
+    font-weight: 700;
+    margin: 0;
+  }
+
+  &_extras {
+    justify-items: center;
+    text-align: center;
+    align-items: center;
+    width: 32px;
+    height: 32px;
+
+    button.dropdown-btn {
+      &:after {
+        content: "";
+        border: none;
+      }
+    }
+
+    svg {
+      margin-top: 3px;
+    }
+  }
+
+  &_extras:hover {
+    border-radius: 3px;
+    background-color: rgba(110, 105, 105, 0.2);
+  }
+
+  &_title {
+    width: 85%;
+  }
+}
+
+.list-card {
+  box-shadow: rgb(0 0 0 / 9%) 0px 9px 12px, rgb(0 0 0 / 6%) 0px 6px 6px;
+  margin: 0 10px;
+  align-items: center;
+  border-radius: 5px;
+  z-index: 1;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 7px;
+
+  .list-card-bgAttachment {
+    height: 100px;
+    width: 100%;
+    // overflow: hidden;
+
+    img {
+      object-fit: cover;
+      pointer-events: none;
+      &.svg,
+      &.gif {
+        background-color: white;
+      }
+    }
+  }
+  > a {
+    &:hover {
+      color: unset;
+    }
+  }
+
+  &_item {
+    border-bottom: 1px solid #a6a8af;
+    background-color: white;
+    height: 100%;
+    width: auto;
+    overflow: hidden;
+    min-height: 60px;
+    padding: 6px 6px 6px;
+    position: relative;
+    z-index: 10;
+    cursor: pointer;
+    &_title {
+      word-wrap: break-word;
+    }
+    &_label {
+      border-radius: 4px;
+      padding: 0 8px;
+      max-width: 100%;
+      height: 16px;
+      box-sizing: border-box;
+      color: white;
+      font-weight: bold;
+      display: inline-block;
+      margin-right: 3px;
+      font-size: 11px;
+    }
+    &_img {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      margin: 0 2px 0 0;
+      .member-in-ticket {
+        float: right;
+        height: 28px;
+        margin: 0 0 4px 4px;
+        width: 28px;
+        img {
+          height: 28px;
+          width: 28px;
+        }
+        img:hover {
+          border-radius: 25em;
+        }
+      }
+    }
+    a {
+      color: black;
+    }
+
+    &_title p {
+      margin-bottom: 4px;
+      &.epic {
+        font-size: 12px;
+        color: #818181;
+        margin: 0;
+        overflow: hidden;
+      }
+    }
+    &_task {
+      line-height: 10px;
+      padding: 6px 6px 6px 0;
+
+      .card-item-icons {
+        display: flex;
+        align-items: center;
+        margin-top: 4px;
+      }
+
+      .task-complete {
+        margin-right: 7px;
+
+        background-color: #61bd4f !important;
+        width: 45px;
+        padding: 4px 2px;
+        border-radius: 3px;
+
+        span,
+        svg {
+          color: #f6f7fa !important;
+          background-color: #61bd4f !important;
+          // line-height: 1.2;
+        }
+        display: flex;
+        justify-content: center;
+      }
+      .task-todo {
+        margin-right: 7px;
+
+        display: flex;
+        border-radius: 3px;
+        padding-left: 0;
+      }
+      .taskIcon {
+        margin-right: 4px;
+        width: 14px;
+        height: 14px;
+        svg {
+          width: 14px;
+          height: 15px;
+        }
+      }
+      .taskProgress {
+        line-height: 1.2;
+      }
+
+      .descriptionIcon {
+        margin-right: 7px;
+      }
+      .attachIcon {
+        margin-right: 8px;
+      }
+      .card-point-preview {
+        line-height: 12px;
+        border: 1px solid #5e6c84;
+        border-radius: 4px;
+        padding: 4px;
+      }
+
+      span {
+        color: var(--ds-text-subtle, #5e6c84);
+        font-size: 12px;
+      }
+    }
+
+    &-private {
+      position: absolute;
+      right: 5px;
+      top: 5px;
+    }
+  }
+
+  :hover {
+    background-color: #f6f7fa;
+    // border-radius: 4px;
+  }
+}
+
+.list {
+  display: block;
+}
+
+.tiketss {
+  // margin: 10px;
+  // border-radius: 5px;
+  // padding-top: 10px;
+  //  background-color: #f8f8f8;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.btn:focus,
+.btn:active {
+  outline: none;
+  box-shadow: none;
+}
+
+.mask-done-state {
+  color: #000;
+  padding-left: 15px;
+  & input {
+    margin-left: 110px;
+  }
+}
+.date-time {
+  color: #000;
+}
+.icon-done svg {
+  margin-bottom: 3px;
+}
+.dropdown-menu {
+  width: 280px;
+  border: 1px solid #091e4221;
+  box-sizing: border-box;
+  color: #5e6c84;
+  line-height: 30px;
+  margin: 3px 0 0 0;
+  overflow: hidden;
+  position: absolute;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding: 0;
+}
+
+.dropdown-menu-title {
+  text-align: center;
+  margin: 0 12px;
+  border-bottom: 1px solid #091e4221;
+}
+
+.column-drag-handle {
+  cursor: move;
+  cursor: -webkit-grabbing;
+}
+
+.column-drag-handle {
+  cursor: move;
+  cursor: -webkit-grabbing;
+}
+
+.highlight {
+  background-color: #f9c7c8 !important;
+}
+
+.tickets-ghost {
+  transition: transform 0.18s ease;
+  transform: rotateZ(5deg);
+  font-weight: bold;
+}
+
+.tickets-ghost-drop {
+  transition: transform 0.18s ease-in-out;
+  transform: rotateZ(0deg);
+  font-weight: bold;
+}
+
+.tickets-drop-preview {
+  background-color: rgba(150, 150, 200, 0.1);
+  border: 1px dashed #abc;
+  margin: 5px;
+}
+.loading_wrapper {
+  margin-top: 5px;
+  .center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+  }
+}

@@ -1,0 +1,37 @@
+.board-left-sidebar {
+    display: flex;
+    flex-direction: row-reverse;
+    position: absolute;
+    height: 100%;
+    min-height: 100%;
+    z-index: 5;
+
+    & .board-left {
+        width: 16px;
+        height: 100%;
+        position: absolute;
+        z-index: 5;
+        left: 0;
+    }
+
+    &_button button {
+        position: absolute;
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+        height: 100%;
+        width: 100%;
+        margin: 0;
+        background-color: rgba(255, 255, 255, 0.16);
+        border-radius: 0;
+        padding: 0;
+
+        &:hover {
+            background-color: rgb(223 187 187 / 64%)
+        }
+    }
+
+    & span.board-left-sidebar_button_icon {
+        margin-top: 12px;
+    }
+}

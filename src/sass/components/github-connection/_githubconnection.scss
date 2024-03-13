@@ -1,0 +1,117 @@
+.github-connection {
+  align-items: center;
+  background-color: #0000007a;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  left: 0;
+  top: 0;
+  overflow-y: auto;
+  position: fixed;
+  width: 100%;
+  z-index: 20;
+
+  &-wrapper {
+    // min-height: 45vh;
+    width: 60vh;
+    justify-content: center;
+    align-items: center;
+    color: black;
+    background-color: #f4f5f7;
+    border-radius: 2px;
+    overflow: auto;
+    position: relative;
+    z-index: 25;
+    padding: 20px 0px 0px 24px;
+
+    h5 {
+      text-align: center;
+    }
+  }
+  &-header {
+    padding: 0px 24px 16px 0px;
+    .header-close-btn {
+      border-radius: 50%;
+      height: 40px;
+      margin: 4px;
+      overflow: hidden;
+      padding: 4px;
+      position: absolute;
+      right: 0;
+      top: 0;
+      transition: background-color 85ms, color 85ms;
+      width: 40px;
+      z-index: 2;
+      border: none;
+      background-color: inherit;
+    }
+    .header-close-btn:hover {
+      background-color: rgba(110, 105, 105, 0.2);
+    }
+  }
+  h6 {
+    font-size: 16px;
+  }
+
+  &-input {
+    padding: 0px 24px 20px 0px;
+
+    .inputBox {
+      width: 100%;
+      padding: 5px 10px;
+    }
+    .selectBox {
+      width: 100%;
+    }
+    .add {
+      background-color: #0079bf !important;
+      color: white;
+      margin-right: 8px;
+    }
+    .add:hover {
+      outline: none;
+      background-color: #219be2;
+      transform: translate(0, -2px);
+    }
+    .btn {
+      //   background-color: #bebebe;
+      background-color: rgba(9, 30, 66, 0.0392156863);
+    }
+    .btn:hover {
+      opacity: 0.7;
+      background-color: rgba(0, 0, 0, 0.2);
+      transform: translate(0, -2px);
+    }
+    .add,
+    .cancel {
+      margin-top: 10px;
+    }
+    // }
+    // }
+  }
+  &-list {
+    padding: 0px 24px 0px 0px;
+    .github-connection-repository {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+
+      .inputBox {
+        cursor: pointer;
+        width: 95%;
+        padding: 5px 10px;
+      }
+      .btn {
+        width: 5%;
+      }
+    }
+  }
+  &-submit {
+    padding: 0px 24px 20px 0px;
+    margin-top: 0px;
+
+    .submit-btn {
+      width: 100%;
+    }
+  }
+}

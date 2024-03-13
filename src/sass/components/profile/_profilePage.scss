@@ -1,0 +1,83 @@
+.profile-user {
+  background-color: #fff;
+  height: 425px;
+  width: 500px;
+  margin: auto;
+  margin-top: 75px;
+  padding-top: 20px;
+  border-radius: 8px;
+  box-shadow: 1px 1px 4px 3px #8080806e;
+  position: relative;
+
+  @media screen and (max-width: 600px) {
+    width: 95vw;
+  }
+
+  &_header {
+    height: 200px;
+    background-color: #f4f5f7;
+  }
+
+  &_avatar {
+    border-radius: 25em;
+    width: 150px;
+    text-align: center;
+    height: 150px;
+    margin: auto;
+    overflow: hidden;
+    object-fit: cover;
+    &_img {
+      height: 100%;
+      width: auto;
+      aspect-ratio: 1;
+      object-fit: cover;
+      max-width: fit-content;
+      &:hover {
+        opacity: 0.9;
+        cursor: pointer;
+      }
+    }
+  }
+  &_icon {
+    left: 280px;
+    top: 135px;
+    position: absolute;
+    & button {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 1px solid #f4f5f7;
+      &:hover {
+        background-color: #dfe1e6;
+      }
+    }
+
+    @media screen and (max-width: 600px) {
+      display: none;
+    }
+  }
+  &_content {
+    margin: 42px auto;
+    padding: 0 12px;
+
+    &_section {
+      max-width: 290px;
+      margin: auto;
+    }
+    & h3 {
+      color: #5e6c84;
+      font-size: 12px;
+      font-weight: 700;
+      display: block;
+    }
+  }
+  &_input {
+    background-color: #fafbfc;
+    border: none;
+    border-radius: 3px;
+    box-shadow: inset 0 0 0 2px #dfe1e6;
+    margin: 4px 0 8px;
+    padding: 8px 12px;
+    width: 100%;
+  }
+}

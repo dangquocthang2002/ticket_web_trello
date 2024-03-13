@@ -1,0 +1,131 @@
+.navbar-menu {
+  display: flex;
+  align-items: center;
+  height: 44px;
+  background-color: $darkBlue;
+  padding: 6px 10px;
+  width: 100%;
+  overflow: hidden;
+
+  &_l {
+    align-items: center;
+    justify-content: flex-end;
+    display: flex;
+    flex-grow: 1;
+
+    &_search:focus-within {
+    }
+
+    &_userDepartment{
+      margin-right: 15px;
+      padding: 2px 5px;
+      height: 30px;
+
+      @media only screen and (max-width: 600px) {
+        padding: 0;
+        margin: 2px;
+        margin-right: 5px;
+      }
+
+      & a {
+        color: #ffffff;
+        font-weight: 500;
+
+        &:hover {
+          color: $orange;
+        }
+
+        svg {
+          margin-right: 4px;
+          height: 27px;
+          vertical-align: middle;
+        }
+
+        span {
+          @media only screen and (max-width: 600px) {
+            display: none;
+          }
+        }
+      }
+    }
+    &_userDepartment:hover {
+      border-radius: 3px;
+    }
+
+    &_notification {
+      @media only screen and (max-width: 600px) {
+        display: none;
+      }
+    }
+
+    &_search {
+      margin-right: 4px;
+      height: 30px;
+      align-items: center;
+      border-radius: 4px;
+      @media only screen and (max-width: 600px) {
+        display: none;
+      }
+
+
+      &_sd span {
+        color: white;
+      }
+      & input {
+        width: 220px;
+        border-radius: 4px;
+        height: 100%;
+        align-items: center;
+        border: none;
+        outline: 0;
+        padding-left: 14px;
+      }
+    }
+  }
+  &_more {
+    &_button {
+      align-items: center;
+      border: none;
+      color: $darkBlue !important;
+    }
+  }
+  & button {
+    align-items: center;
+    height: 30px;
+    width: 40px;
+    border: none;
+    border-radius: 3px;
+    margin: 0 4px;
+
+    &:hover {
+      color: $orange;
+    }
+  }
+
+  &_logo {
+    padding-left: 4px;
+    border-radius: 3px;
+    text-align: center;
+    align-items: center;
+    display: block;
+    top: 0;
+    &_img {
+      width: 40px;
+      background-repeat: no-repeat;
+      // height: 30px;
+      background-size: contain;
+    }
+    & a {
+      color: #ffffff;
+      font-weight: 800;
+
+      &:hover {
+        color: $orange;
+      }
+    }
+  }
+}
+
+.bs {
+  margin: 6px;
+}

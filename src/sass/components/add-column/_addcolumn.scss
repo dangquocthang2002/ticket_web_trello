@@ -1,0 +1,54 @@
+.add-new-column {
+  align-items: center;
+  width: 250px;
+  height: 40px;
+  line-height: 25px;
+  padding: 8px 0 4px 15px;
+  cursor: pointer;
+  color: white;
+  margin-left: 10px;
+  margin-top: 5px;
+  font-size: 15px;
+  background-color: #ffffff3d;
+  border-radius: 5px;
+  &:hover {
+    background-color: #c2bcbc3d;
+  }
+  & svg path {
+  }
+}
+.enter-new-column {
+  border-radius: 5px;
+  margin-top: 5px;
+  outline: none;
+  width: 250px;
+  max-width: 250px;
+  background-color: #ebecf0;
+  line-height: 32px;
+  padding: 0px 3px 6px 3px;
+  margin-left: 10px;
+  input.input-enter-new-column {
+    margin: 5px 0;
+    height: 40px;
+    padding: 4px 10px;
+    border: 2px solid #0079bf;
+    outline: none;
+  }
+}
+span.cancel-new-column {
+  margin-left: 5px;
+}
+button.btn-1 {
+  margin-right: 6px;
+  padding: 1px 10px;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  background-color: #0079bf;
+  &:hover {
+    background-color: #2ea5eb;
+  }
+}
+.cancel-new-column{
+  cursor: pointer;
+}

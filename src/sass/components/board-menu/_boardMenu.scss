@@ -1,0 +1,158 @@
+.board-menu {
+    position: fixed;
+    z-index: 1200;
+    & .board-menu-container {
+        position: fixed;
+        display: flex;
+        -webkit-box-align: center;
+        align-items: center;
+        -webkit-box-pack: center;
+        justify-content: center;
+        inset: 0px;
+        background-color: rgba(0, 0, 0, 0.5);
+        -webkit-tap-highlight-color: transparent;
+        z-index: 1;
+
+        & .board-menu-tab-container {
+            
+            transition: opacity 0.6s linear;
+            background-color: rgb(255, 255, 255);
+            color: #172b4d;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            flex: 1 0 auto;
+            position: fixed;
+            top: 45px;
+            outline: 0px;
+            right: 0px;
+            width: 350px;
+
+            & .board-menu-header {
+                border-bottom: 1px solid rgba(9, 30, 66, .13);
+                text-align: center;
+                justify-content: center;
+                align-items: center;
+                box-sizing: border-box;
+                flex: 0 0 auto;
+                height: 48px;
+                overflow: hidden;
+                padding: 0 6px 0 12px;
+                position: relative;
+                transition: opacity .2s ease-in;
+                width: 100%;
+
+                & .board-menu-header-title {
+                    font-weight: 600;
+                    font-size: 17px;
+                    padding-top: 12px;
+                }
+
+                & .board-menu-header-close {
+                    font-size: 20px;
+                    position: absolute;
+                    right: 8px;
+                    top: 8px;
+
+                    & button {
+                        background-color: inherit;
+                        border: none;
+                    }
+                }
+            }
+        }
+
+        & .board-menu-content {
+            text-align: left;
+            box-shadow: 0 12px 24px -6px #091e4240, 0 0 0 1px #091e4214;
+            box-sizing: border-box;
+            flex: 1 1 auto;
+            height: 100%;
+            overflow-x: hidden;
+            overflow-y: auto;
+            padding: 12px 12px 8px 12px;
+            width: 100%;
+
+            & hr {
+                background-color: #010408fb;
+                border: 0;
+                height: 1px;
+                padding: 0;
+                width: 100%;
+            }
+
+            & .board-menu-navigate {
+                width: 100%;
+                display: block;
+
+                & .board-menu-icon-action {
+                    cursor: pointer;
+                    margin-bottom: 10px;
+                    display: flex;
+                    align-items: center;
+                    padding: 10px;
+                    height: 30px;
+
+                    &:hover {
+                        border-radius: 2px;
+                        background-color: rgba(65, 62, 62, 0.2);
+                    }
+
+                    & p {
+                        padding-left: 10px;
+                        font-weight: 600;
+                        margin: 0;
+                    }
+                }
+            }
+
+            & .show-more-activities {
+                height: 50px;
+                margin-bottom: 50px;
+
+                button {
+                    padding-left: 40px;
+                    color: rgb(110, 104, 104);
+                    width: 100%;
+                    height: 100%;
+                    text-align: left;
+                    background-color: inherit;
+                    align-items: center;
+                    border: none;
+
+                    &:hover {
+                        color: #172b4d;
+                        background-color: rgb(235, 231, 231);
+                    }
+                }
+
+                & p {
+                    text-decoration: underline;
+                    margin: 0;
+                }
+            }
+
+            & .activity {
+                border-radius: 3px;
+                display: block;
+                font-weight: 600;
+                line-height: 20px;
+                text-decoration: none;
+                padding: 6px 6px 6px 14px;
+                position: relative;
+                cursor: pointer;
+
+                & .activityIcon {
+                    margin-right: 10px;
+                }
+
+                &:hover {
+                    background-color: rgba(65, 62, 62, 0.2);
+                    color: #172b4d;
+
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,118 @@
+.archive-container {
+  z-index: 1000;
+  background-color: white;
+  padding: 5px 10px;
+  border-radius: 8px;
+  margin: auto;
+  margin-top: 20px;
+  border: 1px solid transparent;
+  max-width: 1200px;
+  .archive-wrapper {
+    height: 430px;
+    position: relative;
+    .archive-content-header {
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      padding: 5px 0;
+      margin-bottom: 15px;
+      &-title {
+        h3 {
+          margin: 0;
+        }
+      }
+      .input-search {
+        border-radius: 25px;
+        border: 1px solid #5e6c84;
+        padding: 6px 12px;
+        input {
+          padding: 2px 4px;
+          outline: none;
+          border: none;
+        }
+      }
+    }
+    .archive-content-table {
+      th {
+        cursor: pointer;
+        user-select: none;
+      }
+
+      th:hover {
+        color: #5e6c84;
+      }
+      th:last-child {
+        text-align: end;
+      }
+      .actions {
+        display: flex;
+        justify-content: flex-end;
+      }
+      .item {
+        border: none;
+        vertical-align: middle;
+        button {
+          color: white;
+          border: none;
+        }
+      }
+    }
+    .archive-content-footer {
+      padding: 8px 0px;
+      width: 100%;
+      font-weight: 500;
+      text-align: left;
+      font-size: 16px;
+      color: #2c3e50;
+      border-bottom-left-radius: 15px;
+      border-bottom-right-radius: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      margin-right: 20px;
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      .num-records {
+        margin-right: 18px;
+        font-weight: normal;
+        font-size: 12px;
+        width: 170px;
+      }
+      .btn-container {
+        display: flex;
+      }
+      .button {
+        border: none;
+        padding: 7px 14px;
+        border-radius: 50%;
+        cursor: pointer;
+        margin-right: 4px;
+        margin-left: 4px;
+        width: 38px;
+        height: 38px;
+        &:hover {
+          color: #2c3e50;
+        }
+        &.activeButton {
+          color: white;
+          background-color: #0079bf;
+        }
+
+        &.inactiveButton {
+          color: white;
+          background-color: var(--ds-text-subtle, #c4cfe4);
+        }
+        &.prev-next {
+          padding: 0;
+          background-color: #c7ceda;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          margin-left: 5px;
+        }
+      }
+    }
+  }
+}
