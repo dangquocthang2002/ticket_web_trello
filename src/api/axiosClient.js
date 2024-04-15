@@ -3,7 +3,7 @@ import axios from "axios";
 import { getToken } from "utils/LocalStorageHandle";
 
 export const axiosClient = axios.create({
-  baseURL: `${process.env.REACT_APP_API_URL}`,
+  baseURL: `http://localhost:3001/v1`,
   headers: {
     "Content-Type": "application/json",
     Authorization: `Bearer ${getToken()}`,
