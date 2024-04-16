@@ -21,7 +21,7 @@ const NavbarHeader = (props) => {
       <div className="navbar-menu_logo">
         <img
           className="navbar-menu_logo_img"
-          src={"/assets/tonytech-single.png"}
+          src={"/assets/khoawin-single.png"}
           alt=""
         />
         <Link to={"/"}>TonyTicket</Link>

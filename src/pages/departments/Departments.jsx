@@ -96,7 +96,7 @@ class Departments extends React.Component {
             <Block
               isAdmin={this.props.isAdmin}
               add={this.addDepartment}
-              title={"TONYTECH DEPARTMENTS"}
+              title={"khoawin DEPARTMENTS"}
             >
               {this.state.count > 0 && (
                 <div className="spinner-border" role="status"></div>
@@ -137,7 +137,7 @@ class Departments extends React.Component {
               </div>
             </Block>
             {!this.props.isAdmin && (
-              <Block title={"TONYTECH GUEST'S WORKSPACE"}>
+              <Block title={"khoawin GUEST'S WORKSPACE"}>
                 <div className="wrapper">
                   <div className="department">
                     <Container

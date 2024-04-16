@@ -52,7 +52,7 @@ function NewDepartment(props) {
         <div className="department-container-label">
           <img
             className="navbar-menu_logo_img"
-            src={"/assets/tonytech-single.png"}
+            src={"/assets/khoawin-single.png"}
             alt=""
           />
           {isAdmin ? (

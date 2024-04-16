@@ -124,11 +124,11 @@ function UsersBoard(props) {
         <div className="users-board_content">
           <div className="users-board_content_member">
             <ul>
-              <h6>TonyTech Members</h6>
+              <h6>khoawin Members</h6>
               {departmentsUsers[boardActive.department]?.map((user) => (
                 <li key={user._id}>
                   <div>
-                    <img src="/assets/tonytech-single.png" alt="" />
+                    <img src="/assets/khoawin-single.png" alt="" />
                     <span className="member">
                       {user.name}
                       {"   "}
@@ -158,7 +158,7 @@ function UsersBoard(props) {
                   )}
                 </li>
               ))}
-              <h6>TonyTech Guests</h6>
+              <h6>khoawin Guests</h6>
               {boardActiveInvitedMembers
                 ?.filter(
                   (user) =>
@@ -169,7 +169,7 @@ function UsersBoard(props) {
                 .map((user) => (
                   <li key={user._id}>
                     <div>
-                      <img src="/assets/tonytech-single.png" alt="" />
+                      <img src="/assets/khoawin-single.png" alt="" />
                       <span className="invitedMember">
                         {user.name} {"   "}
                         {user._id === currentUser._id ? "  (active)" : ""}

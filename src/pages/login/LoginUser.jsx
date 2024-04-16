@@ -32,8 +32,8 @@ const LoginUser = (props) => {
       <div className="header container">
         <Link to="/">
           <button color="none" className="btn-logo">
-            <img src="./assets/tonytech-single.png" alt="" />
-            <h1 className="title">TonyTech-Tickets</h1>
+            <img src="./assets/khoawin-single.png" alt="" />
+            <h1 className="title">khoawin-Tickets</h1>
           </button>
         </Link>
       </div>

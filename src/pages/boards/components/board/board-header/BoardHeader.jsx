@@ -25,7 +25,7 @@ const BoardHeader = (props) => {
     countFilters,
     departmentsUsers,
     boardActive,
-    userLoggedIn
+    userLoggedIn,
     // setOpenEpicsBoard
   } = props;
   const title = board.name;
@@ -36,9 +36,9 @@ const BoardHeader = (props) => {
   const [showGitHubConnection, setShowGitHubConnection] = useState(false);
 
   // useEffect(() => {
-  //   document.title = `${title} | TonyTech-Ticket`;
+  //   document.title = `${title} | khoawin-Ticket`;
   //   return () => {
-  //     document.title = "TonyTech - Tickets";
+  //     document.title = "khoawin - Tickets";
   //   };
   // }, [title]);
 
@@ -49,7 +49,7 @@ const BoardHeader = (props) => {
       )
   );
 
-  console.log('isLeader', isLeader);
+  console.log("isLeader", isLeader);
 
   const mainMenu = () => {
     return (
