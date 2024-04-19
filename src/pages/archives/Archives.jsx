@@ -9,7 +9,7 @@ const Archives = (props) => {
     <>
       <Helmet>
         <meta charSet="utf-8" />
-        <title>Archives | TonyTicket</title>
+        <title>Archives | KhoaWinTicket</title>
       </Helmet>
       <NavbarHeader />
       <div className="content-wrapper">

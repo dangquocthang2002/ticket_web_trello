@@ -14,7 +14,7 @@ function Users(props) {
     <>
       <Helmet>
         <meta charSet="utf-8" />
-        <title>Users | TonyTicket</title>
+        <title>Users | KhoaWinTicket</title>
       </Helmet>
       <NavbarHeader />
       <div className="container">

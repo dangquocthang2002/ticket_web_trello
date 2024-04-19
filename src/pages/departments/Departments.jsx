@@ -88,7 +88,7 @@ class Departments extends React.Component {
       <>
         <Helmet>
           <meta charSet="utf-8" />
-          <title>Departments | TonyTicket</title>
+          <title>Departments | KhoaWinTicket</title>
         </Helmet>
         <NavbarHeader />
         <div className="container-departments">

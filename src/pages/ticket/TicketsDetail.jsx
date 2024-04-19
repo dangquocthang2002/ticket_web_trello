@@ -89,7 +89,7 @@ const TicketsDetail = (props) => {
 
   const ticketDetail = ticketLabels.find((i) => i.ticketId === ticket?._id);
   const boardTicketLabel = boardLabels.find(
-    (i) => i.boardId === boardActive._id
+    (i) => i.boardId === boardActive._id,
   );
 
   const handleArchiveTicket = async (ticket) => {
@@ -167,7 +167,7 @@ const TicketsDetail = (props) => {
     departmentsUsers[boardActive.department]
       ?.concat(boardActiveInvitedMembers || [])
       .map((user) => user._id)
-      .includes(user._id)
+      .includes(user._id),
   );
 
   if (!ticket?._id) {
@@ -178,7 +178,7 @@ const TicketsDetail = (props) => {
     <>
       <Helmet>
         <meta charSet="utf-8" />
-        <title>{ticket?.name || "Loading..."} | TonyTicket</title>
+        <title>{ticket?.name || "Loading..."} | KhoaWinTicket</title>
         <meta name="description" content={ticket?.description} />
       </Helmet>
       <div className="tickets-detail">
@@ -194,7 +194,7 @@ const TicketsDetail = (props) => {
                 className="tickets-detail-bgAttachment"
                 onClick={() =>
                   setOpenAttachView(
-                    ticketFiles[ticket._id]?.find((file) => file.isCovered)
+                    ticketFiles[ticket._id]?.find((file) => file.isCovered),
                   )
                 }
               >
@@ -265,7 +265,7 @@ const TicketsDetail = (props) => {
                   {ticketDetail &&
                     ticketDetail.labelsActive?.map((item, index) => {
                       const labels = boardTicketLabel?.labels.find(
-                        (i) => i._id === item.label
+                        (i) => i._id === item.label,
                       );
                       return (
                         labels && (
@@ -291,10 +291,10 @@ const TicketsDetail = (props) => {
                     style={{
                       border: `2px solid ${
                         epicsBoard[id]?.find(
-                          (epic) => epic._id === ticket?.epic
+                          (epic) => epic._id === ticket?.epic,
                         )
                           ? epicsBoard[id]?.find(
-                              (epic) => epic._id === ticket?.epic
+                              (epic) => epic._id === ticket?.epic,
                             )?.color
                           : `#f4f5f7`
                       }`,

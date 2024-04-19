@@ -45,8 +45,8 @@ const BoardHeader = (props) => {
   const isLeader = Boolean(
     userActive.role === "ADMIN" ||
       departmentsUsers[boardActive.department]?.find(
-        (user) => user._id === userLoggedIn._id
-      )
+        (user) => user._id === userLoggedIn._id,
+      ),
   );
 
   console.log("isLeader", isLeader);
@@ -138,7 +138,7 @@ const BoardHeader = (props) => {
     <div className="board-header">
       <Helmet>
         <meta charSet="utf-8" />
-        <title>{title || "..."} | TonyTicket</title>
+        <title>{title || "..."} | KhoaWinTicket</title>
       </Helmet>
 
       <div className="board-header_wrapper">

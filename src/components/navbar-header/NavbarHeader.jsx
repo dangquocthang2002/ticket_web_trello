@@ -24,7 +24,7 @@ const NavbarHeader = (props) => {
           src={"/assets/khoawin-single.png"}
           alt=""
         />
-        <Link to={"/"}>TonyTicket</Link>
+        <Link to={"/"}>KhoaWinTicket</Link>
       </div>
       <div className="navbar-menu_l">
         {isAdmin && (
