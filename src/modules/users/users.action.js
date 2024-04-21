@@ -1,5 +1,5 @@
-import { getUsers } from "api/users.api";
 import { getMe as getMeAPI, postLogin, updateMe } from "api/auth.api";
+import { getUsers } from "api/users.api";
 import Types from "./users.constant";
 
 const loginPending = () => {
@@ -108,13 +108,21 @@ const logOut = () => (dispatch) => {
     type: Types.USER_LOGOUT_SUCCESS,
   });
 };
+
+const addNewUser = (user) => (dispatch) => {
+  dispatch({
+    type: Types.ADD_NEW_USER,
+    payload: user,
+  });
+};
 export {
+  addNewUser,
   fetchUsers,
+  getMe,
+  logOut,
+  login,
+  loginError,
   loginPending,
   loginSuccess,
-  loginError,
-  login,
-  getMe,
   updateProfile,
-  logOut,
 };

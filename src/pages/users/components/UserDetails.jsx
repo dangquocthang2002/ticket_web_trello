@@ -12,7 +12,7 @@ function UserDetails({ users }) {
           </tr>
         </thead>
         <tbody>
-          {users.map((user, index) => (
+          {users?.map((user, index) => (
             <tr key={user._id}>
               <td>{index}</td>
               <td>{user.name}</td>

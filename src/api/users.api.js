@@ -13,3 +13,5 @@ export const getUserByEmail = async (emailObj) =>
 export const getTicketsByCurrentUser = (userId) =>
   request().get(`/users/${userId}/tickets`);
 
+export const addNewUserAPI = (user) =>
+  request().post(`/users/create-user`, user);
