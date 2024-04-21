@@ -92,6 +92,13 @@ const usersReducer = (state = initialState, action) => {
         ...state,
         listUsers: [...state.listUsers, action.payload],
       };
+    case Types.DELETE_USER:
+      return {
+        ...state,
+        listUsers: state.listUsers?.filter(
+          (user) => user._id !== action.payload._id
+        ),
+      };
     default:
       return state;
   }

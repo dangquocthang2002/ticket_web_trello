@@ -115,8 +115,15 @@ const addNewUser = (user) => (dispatch) => {
     payload: user,
   });
 };
+const deleteUser = (user) => (dispatch) => {
+  dispatch({
+    type: Types.DELETE_USER,
+    payload: user,
+  });
+};
 export {
   addNewUser,
+  deleteUser,
   fetchUsers,
   getMe,
   logOut,

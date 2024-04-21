@@ -15,3 +15,5 @@ export const getTicketsByCurrentUser = (userId) =>
 
 export const addNewUserAPI = (user) =>
   request().post(`/users/create-user`, user);
+
+export const deleteUserAPI = (user) => request().delete(`/users/${user?._id}`);
