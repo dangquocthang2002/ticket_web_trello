@@ -1,6 +1,6 @@
-import Types from "./users.constant";
-import { getToken, saveToken } from "utils/LocalStorageHandle";
 import jwt_decode from "jwt-decode";
+import { getToken, saveToken } from "utils/LocalStorageHandle";
+import Types from "./users.constant";
 
 const checkRoleUser = () => {
   const token = getToken("ticket.token");
@@ -86,6 +86,11 @@ const usersReducer = (state = initialState, action) => {
       return {
         ...state,
         isLoggedIn: false,
+      };
+    case Types.ADD_NEW_USER:
+      return {
+        ...state,
+        listUsers: [...state.listUsers, action.payload],
       };
     default:
       return state;

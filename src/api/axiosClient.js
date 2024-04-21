@@ -18,14 +18,14 @@ axiosClient.interceptors.response.use(
   },
   function (error) {
     if (error?.response?.status === 401) {
-      localStorage.clear();
-      window.location.href = "/login";
-      return;
+      // localStorage.clear();
+      // window.location.href = "/login";
+      // return;
     }
     // Any status codes that falls outside the range of 2xx cause this function to trigger
     // Do something with response error
     return Promise.reject(error);
-  },
+  }
 );
 
 const request = (options = {}) => {
