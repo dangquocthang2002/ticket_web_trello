@@ -2,7 +2,7 @@ import { Button, Form, Input, Modal } from "antd";
 import { apiUser } from "api";
 import { addNewUser } from "modules/users/users.action";
 import { connect } from "react-redux";
-import { toastError } from "utils/toastHelper";
+import { toastSuccess, toastError } from "utils/toastHelper";
 const layout = {
     labelCol: { span: 8 },
     wrapperCol: { span: 32 },
@@ -32,6 +32,7 @@ const AddUserModal = ({ open, handleCancel, addNewUser }) => {
             password: values.password
         }).then((res) => {
             addNewUser(res?.data);
+            toastSuccess();
             handleCancel();
         }).catch((error) => {
             toastError();
