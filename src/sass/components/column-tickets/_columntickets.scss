@@ -262,6 +262,13 @@
     margin-left: 110px;
   }
 }
+.mask-inProgress-state {
+  color: #000;
+  padding-left: 15px;
+  & input {
+    margin-left: 84px;
+  }
+}
 .date-time {
   color: #000;
 }

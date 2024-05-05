@@ -1,22 +1,21 @@
-import React, { useState, useEffect, useMemo } from "react";
-import { saveContentAfterEnter } from "utils/ContenEditable";
-import { BsThreeDots } from "react-icons/bs";
+import { archiveState, doneState, editTitle } from "modules/columns/columns.action";
+import {
+  fetchTicketByState,
+  moveTicketAction,
+} from "modules/tickets/tickets.action";
+import { useEffect, useMemo, useState } from "react";
 import { Dropdown, Form } from "react-bootstrap";
-import AddTicket from "../add-ticket/AddTicket";
-import Ticket from "../ticket/Ticket";
-import { editTitle } from "modules/columns/columns.action";
+import { BsThreeDots } from "react-icons/bs";
 import { connect } from "react-redux";
 import { Container, Draggable } from "react-smooth-dnd";
-import {
-  moveTicketAction,
-  fetchTicketByState,
-} from "modules/tickets/tickets.action";
-import { archiveState, doneState } from "modules/columns/columns.action";
+import { saveContentAfterEnter } from "utils/ContenEditable";
+import AddTicket from "../add-ticket/AddTicket";
+import Ticket from "../ticket/Ticket";
 
+import WavesLoading from "components/waves-loading/WavesLoading";
+import { boardViewOnlySelector } from "modules/boards/boards.selectors";
 import { getSortTicket } from "modules/tickets/ticket.selectors";
 import { toastError } from "utils/toastHelper";
-import { boardViewOnlySelector } from "modules/boards/boards.selectors";
-import WavesLoading from "components/waves-loading/WavesLoading";
 
 const ColumnTickets = (props) => {
   const {
@@ -36,7 +35,6 @@ const ColumnTickets = (props) => {
     loadingTickets,
   } = props;
   const stateId = column._id;
-
   const tickets = ticketsByState(stateId);
   const [columnTitle, setColumnTitle] = useState("");
   // const [isLoading, setLoading] = useState(false);
@@ -113,6 +111,23 @@ const ColumnTickets = (props) => {
         _id: column._id,
         body: {
           isDone: !column?.isDone,
+          isInProgress: false
+        },
+      });
+    }
+  };
+
+  const clickStateInProgress = () => {
+    if (boardViewOnly) {
+      toastError("Just View Board Only");
+      return;
+    }
+    if (column._id) {
+      doneState({
+        _id: column._id,
+        body: {
+          isDone: false,
+          isInProgress: !column?.isInProgress
         },
       });
     }
@@ -243,6 +258,18 @@ const ColumnTickets = (props) => {
                         type="checkbox"
                         checked={column?.isDone}
                         onChange={clickStateIsDone}
+                        disabled={column?.isInProgress}
+                      />
+                    </label>
+                  </div>
+                  <div className="mask-inProgress-state">
+                    <label>
+                      Mark as InProgress State
+                      <input
+                        type="checkbox"
+                        checked={column?.isInProgress}
+                        onChange={clickStateInProgress}
+                        disabled={column?.isDone}
                       />
                     </label>
                   </div>
