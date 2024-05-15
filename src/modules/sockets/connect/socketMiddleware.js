@@ -1,6 +1,9 @@
+import { getListNotificationsUnSeen } from "modules/notifications/notifications.action";
+import { socketConstants } from "modules/sockets";
+import { toast } from "react-toastify";
 import io from "socket.io-client";
 import { getToken } from "utils/LocalStorageHandle";
-import { socketConstants } from "modules/sockets";
+import { formatDate } from "utils/formatDate";
 import Types from "./event.constants";
 import { SocketEvents } from "./index";
 
@@ -10,6 +13,49 @@ const socketBoardMiddleware = ({ getState, dispatch }) => {
     query: {
       token: getToken("ticket.token"), // TODO: add token from auth
     },
+  });
+  const notificationSocketIO = io(
+    process.env.REACT_APP_SOCKET_URL + "/notifications",
+    {
+      autoConnect: false,
+      query: {
+        token: getToken("ticket.token"), // TODO: add token from auth
+      },
+    }
+  );
+  // const notificationSocketIO = io.connect(process.env.REACT_APP_SOCKET_URL);
+  notificationSocketIO.on("connect", () => {
+    const user = getState().users.user;
+    notificationSocketIO.emit("addUserOnline", user, (err) => {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log("The board connect automaticaly!");
+      }
+    });
+  });
+  notificationSocketIO.on(Types.ADD_NEW_NOTIFICATION, (data) => {
+    dispatch(getListNotificationsUnSeen());
+    switch (data.notification.type) {
+      case "START":
+        toast.warning(
+          <div>
+            <div>{data.notification?.content}</div>
+            <span>{formatDate(data.notification?.createdAt)}</span>
+          </div>
+        );
+        break;
+      case "LATE":
+        toast.error(
+          <div>
+            <div>{data.notification?.content}</div>
+            <span>{formatDate(data.notification?.createdAt)}</span>
+          </div>
+        );
+        break;
+      default:
+        break;
+    }
   });
   socketIO.on("connect", () => {
     const boardActive = getState().boards.boardActive;
@@ -71,6 +117,7 @@ const socketBoardMiddleware = ({ getState, dispatch }) => {
     }
   });
   socketIO.on(Types.MOVE_TICKET, (data) => {
+    console.log(data);
     if (data.clientId !== sessionStorage.getItem("client_id")) {
       return dispatch(SocketEvents.updateMoveTicketEvent(data));
     }
@@ -176,7 +223,9 @@ const socketBoardMiddleware = ({ getState, dispatch }) => {
       return dispatch(SocketEvents.deleteTaskInTicketEvent(data));
     }
   });
-
+  socketIO.on(Types.ADD_NEW_NOTIFICATION, (data) => {
+    console.log(data);
+  });
   return (next) => (action) => {
     switch (action.type) {
       case socketConstants.CONNECT_SOCKET: {
@@ -187,6 +236,17 @@ const socketBoardMiddleware = ({ getState, dispatch }) => {
       case socketConstants.DISCONNECT_SOCKET: {
         const returnVal = next(action);
         socketIO.disconnect();
+        return returnVal;
+      }
+      case socketConstants.CONNECT_SOCKET_NOTIFICATION: {
+        const returnVal = next(action);
+        console.log(action);
+        notificationSocketIO.connect();
+        return returnVal;
+      }
+      case socketConstants.DISCONNECT_CONNECT_SOCKET_NOTIFICATION: {
+        const returnVal = next(action);
+        notificationSocketIO.disconnect();
         return returnVal;
       }
       default: {

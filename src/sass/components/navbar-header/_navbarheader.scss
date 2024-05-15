@@ -16,7 +16,7 @@
     &_search:focus-within {
     }
 
-    &_userDepartment{
+    &_userDepartment {
       margin-right: 15px;
       padding: 2px 5px;
       height: 30px;
@@ -57,7 +57,9 @@
         display: none;
       }
     }
-
+    &_profileview {
+      padding-left: 15px;
+    }
     &_search {
       margin-right: 4px;
       height: 30px;
@@ -66,7 +68,6 @@
       @media only screen and (max-width: 600px) {
         display: none;
       }
-
 
       &_sd span {
         color: white;

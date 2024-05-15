@@ -1,26 +1,38 @@
-import React from "react";
-import { Routes, Route } from "react-router-dom";
-import Home from "./pages/home/Home";
+import { useEffect } from "react";
+import { Route, Routes } from "react-router-dom";
 import BoardId from "./pages/boards/id";
+import Home from "./pages/home/Home";
 
-import LoginUser from "./pages/login/LoginUser";
-import NotFound from "./pages/errors/NotFound";
-import TicketsDetail from "./pages/ticket/TicketsDetail";
 import ProtectedRoute from "./hocs/ProtectedRoute";
 import Department from "./pages/departments/Departments";
+import NotFound from "./pages/errors/NotFound";
+import LoginUser from "./pages/login/LoginUser";
+import TicketsDetail from "./pages/ticket/TicketsDetail";
 // import  UserProvider   from "./contexts/user-provider/UserProvider";
 import { TicketsProvider } from "contexts/tickets-provider/TicketProvider";
-import "./sass/index.scss";
-import Users from "pages/users/Users";
-import UsersBoard from "pages/boards/components/board/users-board/UsersBoard";
-import Archives from "./pages/archives/Archives";
 import ArchiveContent from "pages/archives/components/ArchiveContent/ArchiveContent";
+import UsersBoard from "pages/boards/components/board/users-board/UsersBoard";
+import Users from "pages/users/Users";
+import Archives from "./pages/archives/Archives";
+import "./sass/index.scss";
 // import ArchiveContent from "./pages/archives/components/ArchiveContent/ArchiveContent";
-import Profile from "pages/profile/Profile";
-import useNetwork from "hooks/useNetwork";
 import DisconnectToast from "components/networkConnection/DisconnectToast";
+import useNetwork from "hooks/useNetwork";
+import { getListNotificationsUnSeen } from "modules/notifications/notifications.action";
+import {
+  connectSocketNotification,
+  disConnectSocketNotification,
+} from "modules/sockets/sockets.action";
+import Profile from "pages/profile/Profile";
+import { useDispatch } from "react-redux";
 const App = () => {
   const network = useNetwork();
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(connectSocketNotification());
+    dispatch(getListNotificationsUnSeen());
+    return () => dispatch(disConnectSocketNotification());
+  }, []);
   return (
     <TicketsProvider>
       <div className="container-fluid">

@@ -12,6 +12,12 @@ export default function socketsReducer(state = initialState, action) {
     case Types.DISCONNECT_SOCKET: {
       return { ...state, socketId: null };
     }
+    case Types.CONNECT_SOCKET_NOTIFICATION: {
+      return { ...state };
+    }
+    case Types.DISCONNECT_CONNECT_SOCKET_NOTIFICATION: {
+      return { ...state };
+    }
     default:
       return state;
   }

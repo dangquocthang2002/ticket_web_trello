@@ -6,7 +6,21 @@ const connectSocket = (id) => ({
     socketId: id,
   },
 });
+const connectSocketNotification = (id) => ({
+  type: Types.CONNECT_SOCKET_NOTIFICATION,
+  payload: {
+    socketId: id,
+  },
+});
+const disConnectSocketNotification = () => ({
+  type: Types.DISCONNECT_CONNECT_SOCKET_NOTIFICATION,
+});
 const disConnectSocket = () => ({
   type: Types.DISCONNECT_SOCKET,
 });
-export { connectSocket, disConnectSocket };
+export {
+  connectSocket,
+  connectSocketNotification,
+  disConnectSocket,
+  disConnectSocketNotification,
+};
