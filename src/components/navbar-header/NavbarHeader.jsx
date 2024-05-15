@@ -1,7 +1,7 @@
 import { Avatar, Badge, List, Popover, message } from "antd";
 import { getListNotification } from "api/notification.api";
 import ProfilePopup from "components/profile-popup/ProfilePopup";
-import { getListNotificationsUnSeen } from "modules/notifications/notifications.action";
+import { getListNotificationsUnSeen, offNotification } from "modules/notifications/notifications.action";
 import VirtualList from "rc-virtual-list";
 import { useEffect, useState } from "react";
 import { BsSearch } from "react-icons/bs";
@@ -14,7 +14,9 @@ import {
 import { IoArchive } from "react-icons/io5";
 import { connect, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import useSound from 'use-sound';
 import { formatDate } from "utils/formatDate";
+import boopSfx from '../../hocs/sound.wav';
 const ContainerHeight = 400;
 const NavbarHeader = (props) => {
   const { isAdmin } = props;
@@ -23,6 +25,7 @@ const NavbarHeader = (props) => {
   const [pageCount, setPageCount] = useState(1)
   const [data, setData] = useState([]);
   const dispatch = useDispatch();
+  const [play] = useSound(boopSfx);
   const hide = () => {
     setOpenNotification(false);
   };
@@ -81,6 +84,15 @@ const NavbarHeader = (props) => {
     })
   }
   useEffect(() => {
+    if (props.isNotification) {
+      play();
+      setTimeout(() => {
+        dispatch(offNotification());
+      }, 1000);
+    }
+  }, [props.isNotification])
+
+  useEffect(() => {
     if (openNotification) {
       dispatch(getListNotificationsUnSeen(true))
       fetchData()
@@ -89,6 +101,7 @@ const NavbarHeader = (props) => {
       setPageCount(1)
     }
   }, [openNotification]);
+
   return (
     <div className="navbar-menu">
       <div className="navbar-menu_logo">
@@ -165,5 +178,7 @@ const mapStateToProps = (state) => ({
   isAdmin: state.users.isAdmin,
   notifications: state.notifications.notifications,
   unSeen: state.notifications.unSeen,
+  isNotification: state.notifications.isNotification,
+
 });
 export default connect(mapStateToProps)(NavbarHeader);

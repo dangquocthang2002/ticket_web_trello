@@ -45,4 +45,20 @@ const getListNotificationsUnSeen =
       }
     }
   };
-export { getListNotifications, getListNotificationsUnSeen };
+
+const addNotificationUnSeen = () => (dispatch) => {
+  dispatch({
+    type: Types.ADD_UNSEEN,
+  });
+};
+const offNotification = () => (dispatch) => {
+  dispatch({
+    type: Types.OFF_NOTIFICATION,
+  });
+};
+export {
+  addNotificationUnSeen,
+  getListNotifications,
+  getListNotificationsUnSeen,
+  offNotification,
+};

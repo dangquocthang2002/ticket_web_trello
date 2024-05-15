@@ -1,4 +1,4 @@
-import { getListNotificationsUnSeen } from "modules/notifications/notifications.action";
+import { addNotificationUnSeen } from "modules/notifications/notifications.action";
 import { socketConstants } from "modules/sockets";
 import { toast } from "react-toastify";
 import io from "socket.io-client";
@@ -35,7 +35,7 @@ const socketBoardMiddleware = ({ getState, dispatch }) => {
     });
   });
   notificationSocketIO.on(Types.ADD_NEW_NOTIFICATION, (data) => {
-    dispatch(getListNotificationsUnSeen());
+    dispatch(addNotificationUnSeen());
     switch (data.notification.type) {
       case "START":
         toast.warning(
