@@ -1,46 +1,45 @@
-import React, { useEffect, useContext, useState, useRef } from "react";
-import { AiOutlinePicRight } from "react-icons/ai";
-import { GrClose, GrSort } from "react-icons/gr";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import { BsCardText, BsTag, BsPerson } from "react-icons/bs";
-import { RiAttachment2 } from "react-icons/ri";
+import { useContext, useEffect, useRef, useState } from "react";
 import Helmet from "react-helmet";
+import { AiOutlinePicRight } from "react-icons/ai";
+import { BsCardText, BsPerson, BsTag } from "react-icons/bs";
+import { GrClose, GrSort } from "react-icons/gr";
+import { RiAttachment2 } from "react-icons/ri";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
-import TicketsTitle from "./ticket-title/TicketTitle";
 import ticketsAPI from "api/tickets.api";
 import { TicketsContext } from "contexts/tickets-provider/TicketProvider";
 import TicketLabel from "./ticket-label/TicketLabel";
+import TicketsTitle from "./ticket-title/TicketTitle";
 
 import TicketActivity from "./ticket-activity/TicketActivity";
 
-import TicketTasks from "./ticket-tasks/TicketTasks";
-import TicketMembers from "./ticket-members/TicketMembers";
-import { connect } from "react-redux";
+import { getTicketLabels } from "modules/labels/labels.action";
 import {
-  fetchUsersTicket,
-  getTicketByIdSuccess,
   archiveTicket,
   clearTicketCurrent,
+  fetchUsersTicket,
+  getTicketByIdSuccess,
+  updateTicket,
 } from "modules/tickets/tickets.action";
-import { getTicketLabels } from "modules/labels/labels.action";
-import TicketEpics from "./ticket-epics/TicketEpics";
+import { connect } from "react-redux";
 import TicketDescription from "./ticket-description/TIcketDescription";
-import { updateTicket } from "modules/tickets/tickets.action";
+import TicketEpics from "./ticket-epics/TicketEpics";
+import TicketMembers from "./ticket-members/TicketMembers";
+import TicketTasks from "./ticket-tasks/TicketTasks";
 
-import { useOnClickOutside } from "hooks/useOnClickOutside";
+import WavesLoading from "components/waves-loading/WavesLoading";
+import { boardViewOnlySelector } from "modules/boards/boards.selectors";
+import { addFilesByTicket } from "modules/files/files.action";
+import { fetchPullRequestsByTicket } from "modules/githubConnection/githubConnection.action";
+import { DiGitBranch } from "react-icons/di";
 import { IoArchiveOutline } from "react-icons/io5";
-import TicketPoints from "./ticket-points/TicketPoints";
+import { toastError, toastSuccess } from "utils/toastHelper";
 import TicketAttachmentPopUp from "./ticket-attachments/TicketAttachmentPopUp";
 import TicketAttachmentList from "./ticket-attachments/TikcetAttachmentList";
-import { addFilesByTicket } from "modules/files/files.action";
 import AttachmentView from "./ticket-attachments/attachment-viewer/AttachmentView";
-import { toastError, toastSuccess } from "utils/toastHelper";
-import { boardViewOnlySelector } from "modules/boards/boards.selectors";
-import { DiGitBranch } from "react-icons/di";
 import TicketGitConnection from "./ticket-git-connection/TicketGitConnection";
-import { fetchPullRequestsByTicket } from "modules/githubConnection/githubConnection.action";
+import TicketPoints from "./ticket-points/TicketPoints";
 import TicketPullRequests from "./ticket-pullrequests/TicketPullRequests";
-import WavesLoading from "components/waves-loading/WavesLoading";
 
 const TicketsDetail = (props) => {
   const {
@@ -121,7 +120,7 @@ const TicketsDetail = (props) => {
     }
   };
 
-  useOnClickOutside(ref, () => navigate(`/boards/${id}`));
+  // useOnClickOutside(ref, () => navigate(`/boards/${id}`));
 
   useEffect(() => {
     fetchUsersTicket(ticketId);
@@ -328,6 +327,7 @@ const TicketsDetail = (props) => {
               <TicketTasks
                 showToastOneTime={showToastOneTime}
                 setShowToastOneTime={setShowToastOneTime}
+                ticket={ticket}
               />
             </div>
             <div className="ticket-sidebar">

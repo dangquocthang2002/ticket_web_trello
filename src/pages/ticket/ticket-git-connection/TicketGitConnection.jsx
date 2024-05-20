@@ -1,18 +1,16 @@
-import { useOnClickOutside } from "hooks/useOnClickOutside";
-import { useState } from "react";
-import { useRef } from "react";
+import withRouter from "hocs/withRouter";
+import { useRef, useState } from "react";
+import { BsXLg } from "react-icons/bs";
 import { DiGitBranch } from "react-icons/di";
 import { HiOutlineClipboardCheck } from "react-icons/hi";
-import { BsXLg } from "react-icons/bs";
 import { connect } from "react-redux";
 import { toastSuccess } from "utils/toastHelper";
-import withRouter from "hocs/withRouter";
 
 const TicketGitConnection = (props) => {
-  const { setOpenGit, ticket, user } = props; // {ticketsUsers}
+  const { setOpenGit, ticket, user, isTicketTask, taskCommit } = props; // {ticketsUsers}
   const [openTicketBranch, setOpenTicketBranch] = useState(true);
   const ref = useRef();
-  useOnClickOutside(ref, () => setOpenGit(false));
+  // useOnClickOutside(ref, () => setOpenGit(false));
 
   const branchName =
     `${user.username}/` +
@@ -46,7 +44,7 @@ const TicketGitConnection = (props) => {
           </button>
         </div>
         <div className="ticket-git-content">
-          <div className="ticket-git-switch">
+          {!isTicketTask && <div className="ticket-git-switch">
             <button
               className="ticket-git-switch-branch-btn btn git-switch-active"
               onClick={() => {
@@ -75,7 +73,7 @@ const TicketGitConnection = (props) => {
             >
               Your Commit
             </button>
-          </div>
+          </div>}
           {openTicketBranch ? (
             <div className="ticket-git-branch">
               <div className="ticket-git-branch-content">
@@ -126,6 +124,58 @@ const TicketGitConnection = (props) => {
                   </button>
                 </div>
               </div>
+              {
+                isTicketTask && <div className="ticket-git-branch">
+                  <div className="ticket-git-branch-content">
+                    <h6>Commit:</h6>
+                    <div className="ticket-git-branch-control">
+                      <input
+                        id="commit-value"
+                        type="text"
+                        value={taskCommit}
+                        readOnly
+                      />
+                      <button
+                        className="btn"
+                        onClick={() => {
+                          navigator.clipboard.writeText(
+                            document.getElementById("commit-value").value
+                          );
+                          toastSuccess("Copied");
+                        }}
+                      >
+                        <span>
+                          <HiOutlineClipboardCheck size={16} />
+                        </span>
+                      </button>
+                    </div>
+                  </div>
+                  <div className="ticket-git-branch-content">
+                    <h6>Command:</h6>
+                    <div className="ticket-git-branch-control">
+                      <input
+                        id="commit-command"
+                        type="text"
+                        value={'git commit -m "' + taskCommit + '"'}
+                        readOnly
+                      />
+                      <button
+                        className="btn "
+                        onClick={() => {
+                          navigator.clipboard.writeText(
+                            document.getElementById("commit-command").value
+                          );
+                          toastSuccess("Copied");
+                        }}
+                      >
+                        <span>
+                          <HiOutlineClipboardCheck size={16} />
+                        </span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              }
             </div>
           ) : (
             <div className="ticket-git-branch">

@@ -1,17 +1,20 @@
-import React from "react";
-import ProgressBar from "react-bootstrap/ProgressBar";
-import { HiOutlineX } from "react-icons/hi";
-import { FiCheckSquare } from "react-icons/fi";
-import { connect } from "react-redux";
+import { Tooltip } from "antd";
+import withRouter from "hocs/withRouter";
+import { boardViewOnlySelector } from "modules/boards/boards.selectors";
 import {
   addTaskToTicket,
   deleteTask,
   updateTicketTask,
 } from "modules/ticketTasks/tasks.action";
-import withRouter from "hocs/withRouter";
 import { useState } from "react";
+import ProgressBar from "react-bootstrap/ProgressBar";
+import { DiGitBranch } from "react-icons/di";
+import { FiCheckSquare } from "react-icons/fi";
+import { HiOutlineX } from "react-icons/hi";
+import { connect } from "react-redux";
+import { formatTask } from "utils/formatString";
 import { toastError } from "utils/toastHelper";
-import { boardViewOnlySelector } from "modules/boards/boards.selectors";
+import TicketGitConnection from "../ticket-git-connection/TicketGitConnection";
 const TicketTasks = (props) => {
   const {
     ticketTasks,
@@ -22,13 +25,23 @@ const TicketTasks = (props) => {
     showToastOneTime,
     setShowToastOneTime,
     boardViewOnly,
+    ticket
   } = props;
   const { ticketId } = params;
   const [textAreaTaskId, setTextAreaTaskId] = useState(null);
   const [textAreaContent, setTextAreaContent] = useState("");
   const [openAddTicketTaskForm, setOpenAddTicketTaskForm] = useState(false);
   const [textAddTicketTask, setTextAddTicketTask] = useState("");
+  const [openGit, setOpenGit] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
 
+  const handleMouseEnter = () => {
+    // setOpenGit(true);
+  };
+
+  const handleMouseLeave = () => {
+    setOpenGit(false);
+  };
   const onChangeContentTask = (e) => {
     setTextAreaContent(e.target.value);
   };
@@ -95,9 +108,9 @@ const TicketTasks = (props) => {
   };
   const percentageTask = Math.floor(
     100 *
-      (ticketTasks[ticketId]?.filter((task) => task.status === "complete")
-        .length /
-        ticketTasks[ticketId]?.length)
+    (ticketTasks[ticketId]?.filter((task) => task.status === "complete")
+      .length /
+      ticketTasks[ticketId]?.length)
   );
   return (
     <>
@@ -137,7 +150,7 @@ const TicketTasks = (props) => {
           hidden={ticketTasks[ticketId]?.length <= 0}
         >
           {ticketTasks[ticketId]?.map((task) => (
-            <li key={task._id ? task._id : task.id} className="checklist-item">
+            <li key={task._id ? task._id : task.id} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} className="checklist-item">
               <div className="checklist-item-checkbox">
                 {task.status === "complete" ? (
                   <input
@@ -156,6 +169,7 @@ const TicketTasks = (props) => {
               </div>
               <div className="checklist-item-content">
                 <div className="item-title">
+
                   {textAreaTaskId === task._id ? (
                     <div className="item-title-edit">
                       <input
@@ -179,45 +193,65 @@ const TicketTasks = (props) => {
                       </button>
                     </div>
                   ) : task.status === "complete" ? (
-                    <span
-                      className="complete"
-                      onClick={() => {
-                        onCloseTicketTaskFormAdd();
-                        onOpenTextAreaTask(task);
-                      }}
-                    >
-                      {task._id ? task.name : task.content.name}
-                    </span>
+                    <Tooltip title={<span style={{ display: 'inline-block', width: 'fit-content' }}>{formatTask(task)}</span>} placement="topLeft" color="geekblue" key={task?._id}>
+
+                      <span
+                        className="complete"
+                        onClick={() => {
+                          onCloseTicketTaskFormAdd();
+                          onOpenTextAreaTask(task);
+                        }}
+                      >
+                        {task._id ? task.name : task.content.name}
+                      </span>
+                    </Tooltip>
                   ) : (
-                    <span
-                      onClick={() => {
-                        onCloseTicketTaskFormAdd();
-                        onOpenTextAreaTask(task);
-                      }}
-                    >
-                      {task._id ? task.name : task.content.name}
-                    </span>
+                    <Tooltip title={<span style={{ display: 'inline-block', width: 'fit-content' }}>{formatTask(task)}</span>} placement="topLeft" color="geekblue" key={task?._id}>
+
+                      <span
+                        onClick={() => {
+                          onCloseTicketTaskFormAdd();
+                          onOpenTextAreaTask(task);
+                        }}
+                      >
+                        {task._id ? task.name : task.content.name}
+                      </span>
+                    </Tooltip>
                   )}
+
                 </div>
                 <div className="item-btn-delete">
                   {boardViewOnly ? (
                     <></>
                   ) : (
-                    <button
-                      type="button"
-                      className="btn"
-                      onClick={() => {
-                        if (task._id) {
-                          const isConfirmed = window.confirm("Are you sure?");
-                          onCloseTicketTaskFormAdd();
-                          if (isConfirmed) {
-                            deleteTask(ticketId, task._id);
+                    <>
+                      <span style={{ cursor: "pointer" }} onClick={() => { setOpenGit(!openGit) }}>
+                        <DiGitBranch size={22} fill={"#172b4d"} />
+                      </span>
+                      {openGit && (
+                        <TicketGitConnection
+                          setOpenGit={setOpenGit}
+                          ticket={ticket}
+                          isTicketTask
+                          taskCommit={formatTask(task)}
+                        />
+                      )}
+                      <button
+                        type="button"
+                        className="btn"
+                        onClick={() => {
+                          if (task._id) {
+                            const isConfirmed = window.confirm("Are you sure?");
+                            onCloseTicketTaskFormAdd();
+                            if (isConfirmed) {
+                              deleteTask(ticketId, task._id);
+                            }
                           }
-                        }
-                      }}
-                    >
-                      Delete
-                    </button>
+                        }}
+                      >
+                        Delete
+                      </button>
+                    </>
                   )}
                 </div>
               </div>
