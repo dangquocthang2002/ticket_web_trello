@@ -27,10 +27,12 @@ import TicketEpics from "./ticket-epics/TicketEpics";
 import TicketMembers from "./ticket-members/TicketMembers";
 import TicketTasks from "./ticket-tasks/TicketTasks";
 
+import { checkCommitsInTicket } from "api/githubConnection.api";
 import WavesLoading from "components/waves-loading/WavesLoading";
 import { boardViewOnlySelector } from "modules/boards/boards.selectors";
 import { addFilesByTicket } from "modules/files/files.action";
 import { fetchPullRequestsByTicket } from "modules/githubConnection/githubConnection.action";
+import { updateTaskPending } from "modules/ticketTasks/tasks.action";
 import { DiGitBranch } from "react-icons/di";
 import { IoArchiveOutline } from "react-icons/io5";
 import { toastError, toastSuccess } from "utils/toastHelper";
@@ -40,7 +42,6 @@ import AttachmentView from "./ticket-attachments/attachment-viewer/AttachmentVie
 import TicketGitConnection from "./ticket-git-connection/TicketGitConnection";
 import TicketPoints from "./ticket-points/TicketPoints";
 import TicketPullRequests from "./ticket-pullrequests/TicketPullRequests";
-import { checkCommitsInTicket } from "api/githubConnection.api";
 
 const TicketsDetail = (props) => {
   const {
@@ -67,6 +68,7 @@ const TicketsDetail = (props) => {
     fetchPullRequestsByTicket,
     ticketPullRequests,
     isLoadingGit,
+    updateTaskPending
   } = props;
 
   const { isOpenLabelsModal, setIsOpenLabelsModal } =
@@ -127,17 +129,34 @@ const TicketsDetail = (props) => {
     fetchUsersTicket(ticketId);
     getTicketLabels(ticketId);
   }, []);
-
+  const checkCommit = async (ticketId) => {
+    const tasksDone = await checkCommitsInTicket(ticketId);
+    return tasksDone
+  }
   useEffect(() => {
     const fetchData = async () => {
       try {
         const res = await ticketsAPI.getIdTicket(ticketId);
         getTicketByIdSuccess(res.data);
-      } catch (error) {}
+      } catch (error) { }
     };
     fetchData().then(() => setOpenDescription(true));
     fetchPullRequestsByTicket(ticketId);
-    checkCommitsInTicket(ticketId);
+    if (ticketId) {
+      try {
+        checkCommit(ticketId).then(res => {
+          console.log(res.data);
+          const tasks = res.data;
+          if (tasks?.lenght !== 0) {
+            tasks?.forEach(element => {
+              updateTaskPending(ticketId, element)
+            });
+          }
+        })
+      } catch (error) {
+
+      }
+    }
   }, [ticketId]);
 
   useEffect(() => {
@@ -200,21 +219,19 @@ const TicketsDetail = (props) => {
                 }
               >
                 <img
-                  src={`${process.env.REACT_APP_API_URL}/${
-                    ticketFiles[ticket._id]?.find((file) => file.isCovered).path
-                  }?h=160`}
+                  src={`${process.env.REACT_APP_API_URL}/${ticketFiles[ticket._id]?.find((file) => file.isCovered).path
+                    }?h=160`}
                   alt="logo"
-                  className={`${
-                    ticketFiles[ticket._id]
+                  className={`${ticketFiles[ticket._id]
+                    ?.find((file) => file.isCovered)
+                    .path.includes(".svg")
+                    ? "svg"
+                    : ticketFiles[ticket._id]
                       ?.find((file) => file.isCovered)
-                      .path.includes(".svg")
-                      ? "svg"
-                      : ticketFiles[ticket._id]
-                          ?.find((file) => file.isCovered)
-                          .path.includes(".gif")
+                      .path.includes(".gif")
                       ? "gif"
                       : ""
-                  }`}
+                    }`}
                 />
               </div>
             ) : (
@@ -290,15 +307,14 @@ const TicketsDetail = (props) => {
                   <h3 className="card-detail_item_header">Epic</h3>
                   <span
                     style={{
-                      border: `2px solid ${
-                        epicsBoard[id]?.find(
+                      border: `2px solid ${epicsBoard[id]?.find(
+                        (epic) => epic._id === ticket?.epic,
+                      )
+                        ? epicsBoard[id]?.find(
                           (epic) => epic._id === ticket?.epic,
-                        )
-                          ? epicsBoard[id]?.find(
-                              (epic) => epic._id === ticket?.epic,
-                            )?.color
-                          : `#f4f5f7`
-                      }`,
+                        )?.color
+                        : `#f4f5f7`
+                        }`,
                     }}
                     className="epic-title"
                   >
@@ -529,5 +545,6 @@ const mapDispatchToProps = {
   addFilesByTicket,
   clearTicketCurrent,
   fetchPullRequestsByTicket,
+  updateTaskPending
 };
 export default connect(mapStateToProps, mapDispatchToProps)(TicketsDetail);

@@ -15,7 +15,7 @@
     //   background-color: #0079bf;
     // }
     &_user {
-      color: #0b2c3d;
+      color: white;
       font-size: 18px;
       font-weight: 700;
       line-height: 32px;
@@ -23,7 +23,7 @@
       cursor: pointer;
       display: flex;
       &:hover {
-        color: #000000;
+        color: #0079bf;
       }
       .board-view-only {
         margin-left: 5px;
@@ -54,7 +54,6 @@
     flex-grow: 1;
 
     &_button {
-      
       margin: 3px;
 
       & button {

@@ -308,32 +308,32 @@ const deleteUsersFromDepartment =
 
 const fetchBoardsByDepartment =
   (departmentId) => async (dispatch, getState) => {
-    const departmentsPositions = localStorage.getItem("departmentsPositions");
+    // const departmentsPositions = localStorage.getItem("departmentsPositions");
     dispatch(getSelectedDepartmenPending());
     await apiDepartment
       .getBoardsDepartment(departmentId)
       .then((res) => {
-        const dptPst = (JSON.parse(departmentsPositions) || [])?.find(
-          (dptPst) => dptPst.departmentId === departmentId
-        );
+        // const dptPst = (JSON.parse(departmentsPositions) || [])?.find(
+        //   (dptPst) => dptPst.departmentId === departmentId
+        // );
         dispatch(
           getBoardByDepartmentSuccess(
             departmentId,
             res.data.boards,
             res.data.boards.map((board) => {
-              const boardPst = (dptPst ? dptPst.boards : []).find(
-                (b) => b.boardId === board?._id
-              );
-              if (boardPst) {
-                return boardPst;
-              } else {
-                return {
-                  boardId: board?._id,
-                  posIndex:
-                    board?.positionIndex || Date.parse(board?.createdAt) || 0,
-                  // posIndex: new Date(board?.createdAt).getTime() || 0,
-                };
-              }
+              // const boardPst = (dptPst ? dptPst.boards : []).find(
+              //   (b) => b.boardId === board?._id
+              // );
+              // if (boardPst) {
+              //   return boardPst;
+              // } else {
+              return {
+                boardId: board?._id,
+                posIndex:
+                  board?.positionIndex || Date.parse(board?.createdAt) || 0,
+                // posIndex: new Date(board?.createdAt).getTime() || 0,
+              };
+              // }
             })
           )
         );
@@ -640,26 +640,26 @@ const updateNewPositionBoardsOfDepartment = (newDepartmentsPosition) => ({
   },
 });
 export {
-  getSelectedDepartmenPending,
-  getDepartmentSuccess,
-  getDepartmentPending,
-  getDepartmentError,
-  addDepartmentSuccess,
-  addDepartmentPending,
-  fetchDepartments,
+  addBoardToDepartment,
   addDepartment,
-  updateDepartmentSuccess,
-  updateDepartment,
-  fetchUsersDepartment,
+  addDepartmentPending,
+  addDepartmentSuccess,
   addUsersToDepartment,
+  archiveBoard,
+  archiveBoardSuccess,
+  archiveDepartment,
   deleteUsersFromDepartment,
   fetchBoardsByDepartment,
-  addBoardToDepartment,
-  updateBoard,
+  fetchDepartments,
   fetchDepartmentsByCurrentUser,
-  archiveBoardSuccess,
-  archiveBoard,
-  archiveDepartment,
-  moveDepartmentAction,
+  fetchUsersDepartment,
+  getDepartmentError,
+  getDepartmentPending,
+  getDepartmentSuccess,
+  getSelectedDepartmenPending,
   moveBoardAction,
+  moveDepartmentAction,
+  updateBoard,
+  updateDepartment,
+  updateDepartmentSuccess,
 };

@@ -60,7 +60,7 @@ const taskReducer = (state = initialState, action) => {
           ...state.ticketTasks,
           [action.payload.ticketId]: state.ticketTasks[
             action.payload.ticketId
-          ].map((task) => {
+          ]?.map((task) => {
             if (task._id === action.payload.task._id) {
               return action.payload.task;
             }

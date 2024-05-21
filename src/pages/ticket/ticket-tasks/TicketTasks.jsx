@@ -194,7 +194,6 @@ const TicketTasks = (props) => {
                     </div>
                   ) : task.status === "complete" ? (
                     <Tooltip title={<span style={{ display: 'inline-block', width: 'fit-content' }}>{formatTask(task)}</span>} placement="topLeft" color="geekblue" key={task?._id}>
-
                       <span
                         className="complete"
                         onClick={() => {
@@ -207,7 +206,6 @@ const TicketTasks = (props) => {
                     </Tooltip>
                   ) : (
                     <Tooltip title={<span style={{ display: 'inline-block', width: 'fit-content' }}>{formatTask(task)}</span>} placement="topLeft" color="geekblue" key={task?._id}>
-
                       <span
                         onClick={() => {
                           onCloseTicketTaskFormAdd();
