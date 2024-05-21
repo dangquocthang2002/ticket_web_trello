@@ -8,3 +8,5 @@ export const updateGithubData = (boardId, data) =>
   request().put(`/boards/${boardId}/github`, data);
 export const getPullRequestsByTicket = (ticketId) =>
   request().get(`/tickets/${ticketId}/pull-requests`);
+export const checkCommitsInTicket = (ticketId) =>
+  request().get(`/tickets/${ticketId}/check-commits`);

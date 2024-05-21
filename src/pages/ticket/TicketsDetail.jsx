@@ -40,6 +40,7 @@ import AttachmentView from "./ticket-attachments/attachment-viewer/AttachmentVie
 import TicketGitConnection from "./ticket-git-connection/TicketGitConnection";
 import TicketPoints from "./ticket-points/TicketPoints";
 import TicketPullRequests from "./ticket-pullrequests/TicketPullRequests";
+import { checkCommitsInTicket } from "api/githubConnection.api";
 
 const TicketsDetail = (props) => {
   const {
@@ -136,6 +137,7 @@ const TicketsDetail = (props) => {
     };
     fetchData().then(() => setOpenDescription(true));
     fetchPullRequestsByTicket(ticketId);
+    checkCommitsInTicket(ticketId);
   }, [ticketId]);
 
   useEffect(() => {

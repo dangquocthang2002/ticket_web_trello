@@ -21,7 +21,7 @@ const socketBoardMiddleware = ({ getState, dispatch }) => {
       query: {
         token: getToken("ticket.token"), // TODO: add token from auth
       },
-    }
+    },
   );
   // const notificationSocketIO = io.connect(process.env.REACT_APP_SOCKET_URL);
   notificationSocketIO.on("connect", () => {
@@ -42,7 +42,7 @@ const socketBoardMiddleware = ({ getState, dispatch }) => {
           <div>
             <div>{data.notification?.content}</div>
             <span>{formatDate(data.notification?.createdAt)}</span>
-          </div>
+          </div>,
         );
         break;
       case "LATE":
@@ -50,7 +50,7 @@ const socketBoardMiddleware = ({ getState, dispatch }) => {
           <div>
             <div>{data.notification?.content}</div>
             <span>{formatDate(data.notification?.createdAt)}</span>
-          </div>
+          </div>,
         );
         break;
       default:
