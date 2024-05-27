@@ -1,13 +1,12 @@
+import { Checkbox } from "antd";
 import { useOnClickOutside } from "hooks/useOnClickOutside";
-import { useRef } from "react";
-import { useState } from "react";
-import { useEffect } from "react";
-import { connect } from "react-redux";
-import { fetchUsers } from "modules/users/users.action";
 import {
   addUsersToDepartment,
   deleteUsersFromDepartment,
 } from "modules/departments/departments.action";
+import { fetchUsers } from "modules/users/users.action";
+import { useEffect, useRef, useState } from "react";
+import { connect } from "react-redux";
 function UsersDepartment(props) {
   const {
     department_Id,
@@ -63,45 +62,44 @@ function UsersDepartment(props) {
 
   return (
     <>
-      <div ref={ref} className="popup-over">
-        {count > 0 && (
-          <div
-            id="popup-over-spinner-border"
-            className="spinner-border"
-            role="status"
-          ></div>
-        )}
-        {isAdmin ? (
+      {isAdmin && (
+
+        <div ref={ref} className="popup-over">
+          {count > 0 && (
+            <div
+              id="popup-over-spinner-border"
+              className="spinner-border"
+              role="status"
+            ></div>
+          )}
           <div className="select-all-users">
-            <input
-              type="checkbox"
+            <Checkbox
               checked={usersIsAddAll}
               onChange={addAllUsersToDepartment}
-            />
-            <span>Select all</span>
+            >
+              <span>Select all</span>
+            </Checkbox>
           </div>
-        ) : (
-          <></>
-        )}
-        <ul>
-          {users?.map((user) => (
-            <li key={user._id}>
-              <input
-                type="checkbox"
-                checked={
-                  departmentsUsers[department_Id]
-                    ? departmentsUsers[department_Id]
+
+          <ul>
+            {users?.map((user) => (
+              <li key={user._id}>
+                <Checkbox
+                  checked={
+                    departmentsUsers[department_Id]
+                      ? departmentsUsers[department_Id]
                         .map((user) => user._id)
                         .includes(user._id)
-                    : false
-                }
-                onChange={() => (isAdmin ? handleCheck(user) : false)}
-              />{" "}
-              <span>{user.name}</span>
-            </li>
-          ))}
-        </ul>
-      </div>
+                      : false
+                  }
+                  onChange={() => (isAdmin ? handleCheck(user) : false)}
+                >
+                  <span>{user.name}</span>
+                </Checkbox>
+              </li>
+            ))}
+          </ul>
+        </div>)}
     </>
   );
 }

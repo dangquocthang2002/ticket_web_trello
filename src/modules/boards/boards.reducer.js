@@ -8,6 +8,8 @@ const initialState = {
   boardActiveInvitedMembers: [],
   boards: [],
   filter: {},
+  ticketsOfUser: [],
+  ticketsBoard: [],
 };
 
 const boardsReducer = (state = initialState, action) => {
@@ -402,6 +404,11 @@ const boardsReducer = (state = initialState, action) => {
       return {
         ...state,
         guestDepartmentsPositions: action.payload.newGuestDepartmentsPositions,
+      };
+    case Types.GET_TICKETS_OF_BOARD:
+      return {
+        ...state,
+        ticketsBoard: action.payload,
       };
     default:
       return state;
