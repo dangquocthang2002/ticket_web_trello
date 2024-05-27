@@ -54,7 +54,6 @@ const App = () => {
                 </ProtectedRoute>
               }
             />
-
             <Route
               path="ticket/:ticketId"
               element={

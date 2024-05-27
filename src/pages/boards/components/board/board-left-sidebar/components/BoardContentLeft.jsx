@@ -1,13 +1,13 @@
-import React, { useRef, useEffect } from "react";
-import { useOnClickOutside } from "hooks/useOnClickOutside";
-import { MdSpaceDashboard } from "react-icons/md";
-import { CgProfile } from "react-icons/cg";
-import { BsChevronDoubleLeft } from "react-icons/bs";
-import ListBoardsOfDepartment from "./ListBoardsOfDepartment";
-import { Link, useParams } from "react-router-dom";
-import { connect } from "react-redux";
-import { fetchBoardsByDepartment } from "modules/departments/departments.action";
 import Spinner from "components/spinner/Spinner";
+import { fetchBoardsByDepartment } from "modules/departments/departments.action";
+import { useEffect, useRef, useState } from "react";
+import { BsChevronDoubleLeft } from "react-icons/bs";
+import { CgProfile } from "react-icons/cg";
+import { MdSpaceDashboard } from "react-icons/md";
+import { connect } from "react-redux";
+import { Link, useParams } from "react-router-dom";
+import UserTimeline from "../../board-timeline/UserTimeline";
+import ListBoardsOfDepartment from "./ListBoardsOfDepartment";
 
 const BoardContentLeft = (props) => {
   const ref = useRef();
@@ -19,10 +19,11 @@ const BoardContentLeft = (props) => {
     departmentsBoards,
     isLoading,
   } = props;
+  const [isTimelineModalOpen, setIsTimelineModalOpen] = useState(false);
 
   const departmentId = boardActive.department;
   const { id } = useParams();
-  useOnClickOutside(ref, () => setShowBoardleftSideBar(false));
+  // useOnClickOutside(ref, () => setShowBoardleftSideBar(false));
   useEffect(() => {
     fetchBoardsByDepartment(departmentId);
   }, [departmentId]);
@@ -70,6 +71,15 @@ const BoardContentLeft = (props) => {
                   </span>
                   <p>Member</p>
                 </Link>
+                <a
+                  onClick={() => { setIsTimelineModalOpen(true) }}
+                  className="board-left-sidebar-action"
+                >
+                  <span className="icon">
+                    <CgProfile size={18} />
+                  </span>
+                  <p>TimeLine</p>
+                </a>
               </div>
               <div className="board-left-sidebar-action">
                 <div className="span">
@@ -84,10 +94,10 @@ const BoardContentLeft = (props) => {
                 <div>
                   {departmentsBoards[departmentId]?.map((board) => (
                     <ListBoardsOfDepartment
-                    // className= {` ListBoardsOfDepartment ${
-                    //   id === board._id ? "active" : "acive2"
-                    // } `}
-                    board={board} key={board._id} />
+                      // className= {` ListBoardsOfDepartment ${
+                      //   id === board._id ? "active" : "acive2"
+                      // } `}
+                      board={board} key={board._id} />
                   ))}
                 </div>
               )}
@@ -95,6 +105,7 @@ const BoardContentLeft = (props) => {
           </div>
         </div>
       </div>
+      {isTimelineModalOpen && <UserTimeline handleCancel={() => { setIsTimelineModalOpen(false) }} />}
     </div>
   );
 };

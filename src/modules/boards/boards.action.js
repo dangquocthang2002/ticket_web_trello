@@ -1,14 +1,14 @@
 import { apiBoard, apiUser } from "api";
+import { getAllFilesByTicketSuccess } from "modules/files/files.action";
+import { getAllLabelsByTicketSuccess } from "modules/labels/labels.action";
 import {
   getAllUsersByTicketSuccess,
   getTicketsByStateSucess,
 } from "modules/tickets/tickets.action";
-import { getAllLabelsByTicketSuccess } from "modules/labels/labels.action";
-import { getAllFilesByTicketSuccess } from "modules/files/files.action";
 
+import { getAllTasksByTicketSuccess } from "modules/ticketTasks/tasks.action";
 import { toastError } from "utils/toastHelper";
 import Types from "./boards.constant";
-import { getAllTasksByTicketSuccess } from "modules/ticketTasks/tasks.action";
 import {
   getSortGuestBoardPositions,
   getSortGuestDepartmentsPositions,
@@ -174,6 +174,13 @@ const fetchTicketsByBoard = (boardId) => async (dispatch, getState) => {
   try {
     const state = getState();
     const res = await apiBoard.getTicketsOfBoard(boardId).then((res) => {
+      console.log(
+        res.data.filter((ticket) =>
+          ticket.members
+            .map((member) => member._id)
+            ?.includes(state.users.user?._id)
+        )
+      );
       const states = state.states.states.reduce((obj, item) => {
         return {
           ...obj,
@@ -199,6 +206,10 @@ const fetchTicketsByBoard = (boardId) => async (dispatch, getState) => {
           ticketId: ticket._id,
           labelsActive: ticket.labels,
         });
+      });
+      dispatch({
+        type: Types.GET_TICKETS_OF_BOARD,
+        payload: res.data,
       });
       dispatch(getTicketsByStateSucess(states));
       dispatch(getAllLabelsByTicketSuccess(ticketLabels));
@@ -321,17 +332,20 @@ const updatePositionGuestBoard = (newGuestDepartmentsPositions) => ({
     newGuestDepartmentsPositions: newGuestDepartmentsPositions,
   },
 });
+
+const getTicketsUserAssigned = () => {};
+
 export {
-  getDetailBoardById,
+  addInvitedMembersToBoardActive,
+  addInvitedMembersToBoardActivePending,
+  deleteInvitedMembersFromBoard,
+  deleteInvitedMembersFromBoardSuccess,
   fetchBoardsByInvitedUser,
   fetchInvitedMembersOfBoardActive,
-  addInvitedMembersToBoardActive,
-  deleteInvitedMembersFromBoard,
   fetchTicketsByBoard,
-  addInvitedMembersToBoardActivePending,
-  deleteInvitedMembersFromBoardSuccess,
-  moveGuestDepartmentAction,
+  getDetailBoardById,
   moveGuestBoardAction,
+  moveGuestDepartmentAction,
 };
 
 export * from "./boardsFilter.action";

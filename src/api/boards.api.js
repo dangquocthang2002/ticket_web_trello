@@ -13,3 +13,6 @@ export const deleteInvitedMembersFromBoard = (boardId, invitedMembers) =>
   });
 export const getTicketsOfBoard = (boardId) =>
   request().get(`/boards/${boardId}/tickets`);
+
+export const getTicketsDoneOfBoard = (boardId) =>
+  request().get(`/boards/${boardId}/tickets-done`);
