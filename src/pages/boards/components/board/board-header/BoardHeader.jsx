@@ -1,18 +1,18 @@
 import withRouter from "hocs/withRouter";
-import React, { useState } from "react";
-import { BsFilter, BsThreeDots, BsSlack } from "react-icons/bs";
-import { AiOutlinePicRight } from "react-icons/ai";
-import { RiUserSharedLine } from "react-icons/ri";
-import { useParams } from "react-router-dom";
-import BoardMenu from "../board-menu/BoardMenu";
-import BoardFilter from "../board-filter/BoardFilter";
-import { connect } from "react-redux";
+import { useState } from "react";
 import Helmet from "react-helmet";
+import { AiOutlineEye, AiOutlinePicRight } from "react-icons/ai";
+import { BsFilter, BsSlack, BsThreeDots } from "react-icons/bs";
+import { RiUserSharedLine } from "react-icons/ri";
+import { connect } from "react-redux";
+import { useParams } from "react-router-dom";
+import BoardFilter from "../board-filter/BoardFilter";
+import BoardMenu from "../board-menu/BoardMenu";
 import SlackConnection from "../slack-connection/SlackConnection";
-import { AiOutlineEye } from "react-icons/ai";
 
 import { countBoardFiltersSelector } from "modules/boards/boards.selectors";
 import { DiGitBranch } from "react-icons/di";
+import UserTimeline from "../board-timeline/UserTimeline";
 import GithubConnection from "../github-connection/GithubConnection";
 
 const isMobile = window.innerWidth < 600;
@@ -34,6 +34,7 @@ const BoardHeader = (props) => {
   const { id } = useParams();
   const [showSlackConnection, setShowSlackConnection] = useState(false);
   const [showGitHubConnection, setShowGitHubConnection] = useState(false);
+  const [isTimelineModalOpen, setIsTimelineModalOpen] = useState(false);
 
   // useEffect(() => {
   //   document.title = `${title} | khoawin-Ticket`;
@@ -44,9 +45,9 @@ const BoardHeader = (props) => {
 
   const isLeader = Boolean(
     userActive.role === "ADMIN" ||
-      departmentsUsers[boardActive.department]?.find(
-        (user) => user._id === userLoggedIn._id,
-      ),
+    departmentsUsers[boardActive.department]?.find(
+      (user) => user._id === userLoggedIn._id,
+    ),
   );
 
   console.log("isLeader", isLeader);
@@ -54,8 +55,10 @@ const BoardHeader = (props) => {
   const mainMenu = () => {
     return (
       <>
+
         {isLeader && (
           <div className="board-header_l_button p-btn">
+
             <button
               type="button"
               className="btn"
@@ -88,7 +91,18 @@ const BoardHeader = (props) => {
         {showSlackConnection && (
           <SlackConnection setShowSlackConnection={setShowSlackConnection} />
         )}
-
+        <div className="board-header_l_button p-btn">
+          <button
+            type="button"
+            className="btn"
+            onClick={() => { setIsTimelineModalOpen(true) }}
+          >
+            <span>
+              <DiGitBranch size={20} />
+            </span>
+            Timeline
+          </button>
+        </div>
         <div className="board-header_l_button p-btn">
           <button
             type="button"
@@ -202,6 +216,7 @@ const BoardHeader = (props) => {
           <BoardFilter setShowBoardFilter={setShowBoardFilter} />
         )}
       </div>
+      {isTimelineModalOpen && <UserTimeline handleCancel={() => { setIsTimelineModalOpen(false) }} />}
     </div>
   );
 };
