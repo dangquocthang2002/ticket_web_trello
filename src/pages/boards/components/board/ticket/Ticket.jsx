@@ -1,16 +1,16 @@
-import { React } from "react";
-import { FiCheckSquare } from "react-icons/fi";
 import { BsJustifyLeft, BsShieldLock } from "react-icons/bs";
+import { FiCheckSquare } from "react-icons/fi";
 
 import { RiAttachment2 } from "react-icons/ri";
 
-import { connect } from "react-redux";
-import { fetchTasksByTicketId } from "modules/ticketTasks/tasks.action";
-import { useNavigate, useParams } from "react-router-dom";
-import { fetchUsersTicket } from "modules/tickets/tickets.action";
-import { getTicketLabels } from "modules/labels/labels.action";
+import { Avatar } from "antd";
 import { fetchFilesByTicket } from "modules/files/files.action";
-
+import { getTicketLabels } from "modules/labels/labels.action";
+import { fetchTasksByTicketId } from "modules/ticketTasks/tasks.action";
+import { fetchUsersTicket } from "modules/tickets/tickets.action";
+import { connect } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
+const ColorList = ['#f56a00', '#7265e6', '#ffbf00', '#00a2ae'];
 const Ticket = (props) => {
   const {
     ticket,
@@ -25,7 +25,7 @@ const Ticket = (props) => {
     ticketFiles,
   } = props;
   const navigate = useNavigate();
-
+  const random = Math.floor(Math.random() * ColorList.length);
   const ticketDetail = ticketLabels.find((i) => i.ticketId === ticket._id);
   const boardTicketLabel = boardLabels.find(
     (i) => i.boardId === boardActive._id
@@ -40,26 +40,35 @@ const Ticket = (props) => {
       .length === ticketTasks[ticket._id]?.length;
 
   const epic = epicsBoard[id]?.find((epic) => epic._id === ticket?.epic);
+  const userList = ticketsUsers[ticket._id]
+    ?.filter((user) =>
+      [
+        ...Array.isArray(departmentsUsers[boardActive?.department]) ? departmentsUsers[boardActive?.department] : [],
+        ...boardActiveInvitedMembers,
+      ]
+        ?.map((departmentsUsers) => departmentsUsers._id)
+        .includes(user._id)
+    );
+  const sizeUser = 2;
+  const userShow = userList.slice(0, sizeUser);
   return (
 
-    <div className="list-card">       
+    <div className="list-card">
       {ticketFiles[ticket._id]?.find((file) => file.isCovered) ? (
         <div className="list-card-bgAttachment" onClick={onclickTicketPage}>
           <img
-            className={`${
-              ticketFiles[ticket._id]
+            className={`${ticketFiles[ticket._id]
+              ?.find((file) => file.isCovered)
+              .path.includes(".svg")
+              ? "svg"
+              : ticketFiles[ticket._id]
                 ?.find((file) => file.isCovered)
-                .path.includes(".svg")
-                ? "svg"
-                : ticketFiles[ticket._id]
-                    ?.find((file) => file.isCovered)
-                    .path.includes(".gif")
+                .path.includes(".gif")
                 ? "gif"
                 : ""
-            }`}
-            src={`${process.env.REACT_APP_API_URL}/${
-              ticketFiles[ticket._id]?.find((file) => file.isCovered).path
-            }?h=165&w=252`}
+              }`}
+            src={`${process.env.REACT_APP_API_URL}/${ticketFiles[ticket._id]?.find((file) => file.isCovered).path
+              }?h=165&w=252`}
             alt="logo"
           />
         </div>
@@ -72,8 +81,8 @@ const Ticket = (props) => {
         style={
           epic
             ? {
-                borderLeft: `4px solid ${epic.color || `#f6f7fa`}`,
-              }
+              borderLeft: `4px solid ${epic.color || `#f6f7fa`}`,
+            }
             : {}
         }
       >
@@ -85,26 +94,27 @@ const Ticket = (props) => {
           )}
         </div>
         <div className="list-card_item_img">
-          {ticketsUsers[ticket._id]
-            ?.filter((user) =>
-              [
-                ...Array.isArray(departmentsUsers[boardActive?.department]) ? departmentsUsers[boardActive?.department] : [],
-                ...boardActiveInvitedMembers,
-              ]
-                ?.map((departmentsUsers) => departmentsUsers._id)
-                .includes(user._id)
-            )
+          {userShow
             ?.map((user) => (
               <div className="member-in-ticket" key={user._id}>
-                <img
-                  src={user.avatar?.path
-                    ? `${process.env.REACT_APP_API_URL}/${user.avatar?.path}?w=50&h=50`
-                    : '/assets/no-avatar-user.png'}
-                  alt=""
-                  className="card-detail_item_member_avatar"
-                />
+                <Avatar style={{ backgroundColor: ColorList[random], verticalAlign: 'middle' }} size="small" >
+                  <img
+                    src={user.avatar?.path
+                      ? `${process.env.REACT_APP_API_URL}/${user.avatar?.path}?w=50&h=50`
+                      : '/assets/no-avatar-user.png'}
+                    alt=""
+                    className="card-detail_item_member_avatar"
+                  />
+                </Avatar>
               </div>
             ))}
+          {userList?.length - sizeUser > 0 && <div className="member-in-ticket" key={"number-con-lai"}>
+            <Avatar style={{ verticalAlign: 'middle' }} size="small" >
+              {
+                userList && (`+${userList?.length - sizeUser}`)
+              }
+            </Avatar>
+          </div>}
         </div>
         <div className="list-card_item_title">
           <p className="epic">

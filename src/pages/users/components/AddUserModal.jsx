@@ -2,7 +2,7 @@ import { Button, Form, Input, Modal } from "antd";
 import { apiUser } from "api";
 import { addNewUser } from "modules/users/users.action";
 import { connect } from "react-redux";
-import { toastSuccess, toastError } from "utils/toastHelper";
+import { toastError, toastSuccess } from "utils/toastHelper";
 const layout = {
     labelCol: { span: 8 },
     wrapperCol: { span: 32 },
