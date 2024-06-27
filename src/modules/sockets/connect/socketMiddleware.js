@@ -21,7 +21,7 @@ const socketBoardMiddleware = ({ getState, dispatch }) => {
       query: {
         token: getToken("ticket.token"), // TODO: add token from auth
       },
-    },
+    }
   );
   // const notificationSocketIO = io.connect(process.env.REACT_APP_SOCKET_URL);
   notificationSocketIO.on("connect", () => {
@@ -42,7 +42,7 @@ const socketBoardMiddleware = ({ getState, dispatch }) => {
           <div>
             <div>{data.notification?.content}</div>
             <span>{formatDate(data.notification?.createdAt)}</span>
-          </div>,
+          </div>
         );
         break;
       case "LATE":
@@ -50,7 +50,7 @@ const socketBoardMiddleware = ({ getState, dispatch }) => {
           <div>
             <div>{data.notification?.content}</div>
             <span>{formatDate(data.notification?.createdAt)}</span>
-          </div>,
+          </div>
         );
         break;
       default:
@@ -117,7 +117,6 @@ const socketBoardMiddleware = ({ getState, dispatch }) => {
     }
   });
   socketIO.on(Types.MOVE_TICKET, (data) => {
-    console.log(data);
     if (data.clientId !== sessionStorage.getItem("client_id")) {
       return dispatch(SocketEvents.updateMoveTicketEvent(data));
     }
@@ -223,9 +222,7 @@ const socketBoardMiddleware = ({ getState, dispatch }) => {
       return dispatch(SocketEvents.deleteTaskInTicketEvent(data));
     }
   });
-  socketIO.on(Types.ADD_NEW_NOTIFICATION, (data) => {
-    console.log(data);
-  });
+  socketIO.on(Types.ADD_NEW_NOTIFICATION, (data) => {});
   return (next) => (action) => {
     switch (action.type) {
       case socketConstants.CONNECT_SOCKET: {
@@ -240,7 +237,6 @@ const socketBoardMiddleware = ({ getState, dispatch }) => {
       }
       case socketConstants.CONNECT_SOCKET_NOTIFICATION: {
         const returnVal = next(action);
-        console.log(action);
         notificationSocketIO.connect();
         return returnVal;
       }
