@@ -24,7 +24,9 @@ const UserTimeline = (props) => {
     const param = props.params;
     const navigate = props.navigate;
     const [dataSource, setDataSource] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
     const getData = useCallback(async (id) => {
+        setIsLoading(true);
         const res = await getTicketsDoneOfBoard(id);
         setDataSource(res.data.map(item => ({
             ...item,
@@ -37,6 +39,7 @@ const UserTimeline = (props) => {
             allDay: true,
             overlap: true,
         })))
+        setIsLoading(false);
 
     }, [param?.id]);
     const handleEventClick = (ticket) => {
@@ -60,7 +63,7 @@ const UserTimeline = (props) => {
         footer
     >
         {
-            dataSource?.length !== 0 ?
+            !isLoading ?
                 <FullCalendar
                     plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
                     initialView="dayGridMonth"
