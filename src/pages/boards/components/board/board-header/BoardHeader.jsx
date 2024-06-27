@@ -56,7 +56,7 @@ const BoardHeader = (props) => {
     return (
       <>
 
-        {isLeader && (
+        {["ADMIN"].includes(userActive.role) && (
           <div className="board-header_l_button p-btn">
 
             <button
